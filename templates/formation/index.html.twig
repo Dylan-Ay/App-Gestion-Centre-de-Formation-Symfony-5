@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Formations{% endblock %}
+
+{% block body %}
+
+<h1>Les Formations</h1>
+<section id="formations-list" class="py-5 d-flex justify-content-center flex-wrap gap-5">
+
+    {% for formation in formationsList %}
+        
+    <div class="card border-info mb-3">
+            <div class="card-header ">Informatique Numérique</div>
+            <div class="card-body">
+                <h4 class="card-title text-info">{{formation.title}}</h4>
+                <p class="card-text">{{formation.shortDescription}}</p>
+            </div>
+
+        <a href="#" class="btn btn-primary my-3 w-75 m-auto">Détail de la formation</a>
+    </div>
+
+    {% endfor %}
+</section>
+
+{% endblock %}

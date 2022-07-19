@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stagiaires{% endblock %}
+
+{% block body %}
+
+<h1>Les Stagiaires</h1>
+<section id="interns-list" class="py-5">
+
+    <table class="table table-hover mt-4">
+        <thead>
+          <tr>
+            <th scope="col">Prenom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Age</th>
+            <th scope="col">Sexe</th>
+            <th scope="col">Email</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Sessions prévues</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for intern in internsList %}
+
+        <tr class="table-active">
+            <td>{{intern.firstName}}</td>
+            <td>{{intern.lastName}}</td>
+            <td>{{intern.birthDate | date("d/m/Y")}}</td>
+            <td>{{intern.getAge}}</td>
+            <td>{{intern.gender}}</td>
+            <td>{{intern.email}}</td>
+            <td>{{intern.getFullAdress}}</td>
+            <td>{{intern.phone}}</td>
+            <td>
+              <ul>
+                {% for internsession in intern.sessions %}
+                <li>
+                  <span class="fw-bold">{{internsession.formation.title}}</span>
+                    <br>( du {{internsession.datestart| date("d/m/Y")}} au 
+                    {{internsession.dateend| date("d/m/Y") }} )
+                </li>
+                {% endfor %}
+              </ul>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+      </table>
+</section>
+
+{% endblock %}

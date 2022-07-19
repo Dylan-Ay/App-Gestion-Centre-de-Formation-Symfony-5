@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Sessions{% endblock %}
+
+{% block body %}
+
+<h1 class="mb-5">Les Sessions de formation</h1>
+<section id="sessions-list" class="row justify-content-center py-5 gap-5">
+
+    {% for session in listSessions %}
+
+        <article class="card mb-3 p-0">
+            <h3 class="card-header">{{session.formation.title}}</h3>
+            <div class="card-body">
+              <p class="card-text">{{session.formation.shortDescription}}</p>
+            </div>
+            
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item ">
+                    <div class="fw-bold text-center pb-3">Les prochaines sessions :</div>
+                    <div class="date-container">
+                        <i class="fa-solid fa-calendar-days pe-3"></i>Date de début 
+                        <i class="fa-solid fa-arrow-right px-2"></i>
+                        {{ session.datestart | date("d.m.Y") }}
+                    </div>
+
+                    <div class="py-2"></div>
+
+                    <div class="date-container">
+                        <i class="fa-solid fa-calendar-days pe-3"></i>Date de fin
+                        <i class="fa-solid fa-arrow-right px-2"></i>
+                        {{ session.dateend | date("d.m.Y") }}
+                    </div>
+                </li>
+                
+                <li class="list-group-item text-center">Nombre de places théoriques : 
+                    <span class="fw-bold">{{ session.placenumber}}</span>
+                </li>
+
+                <li class="list-group-item text-center">Nombre de places réservés : 
+                    <span class="fw-bold">*</span>
+                </li>
+
+                <li class="list-group-item text-center">Nombre de places restantes : 
+                    <span class="fw-bold">*</span>
+                </li>
+
+                <li class="list-group-item text-center py-4">
+                    <a href="#" class="btn btn-secondary">Voir le programme de la formation</a>
+                </li>
+            </ul>
+
+        </article>
+
+    {% endfor %}
+</section>
+
+{% endblock %}
