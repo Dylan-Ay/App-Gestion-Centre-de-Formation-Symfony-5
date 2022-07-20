@@ -69,6 +69,11 @@ class Intern
      */
     private $sessions;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $country;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -184,7 +189,7 @@ class Intern
 
     public function getFullAdress(): ?string
     {
-        return "$this->adress $this->zipcode, $this->city";
+        return "$this->adress $this->zipcode, $this->city, $this->country";
     }
 
     public function getPhone(): ?string
@@ -219,6 +224,18 @@ class Intern
     public function removeSession(Session $session): self
     {
         $this->sessions->removeElement($session);
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

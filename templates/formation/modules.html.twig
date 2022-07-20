@@ -5,31 +5,30 @@
 {% block body %}
 
 <h1>Gestion des modules</h1>
-<section id="modules-list" class="py-5 d-flex justify-content-evenly flex-wrap gap-5">
+<section id="modules-list" class="py-5">
 
-    <table class="table table-hover mt-4">
-        <thead>
-          <tr>
-            <th class="text-center">Développement</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        <tr class="table-active d-flex flex-column">
-            {% for module in modulesList %}
-                <td class="d-flex justify-content-between">
-                    {{module.title}} 
-
-                    <div class="btn-container">
-                        <a href="#" class="btn btn-success">Editer</a> 
-                        <a href="#" class="btn btn-danger">Supprimer</a>
-                    </div>
-                    
-                </td>
-            {% endfor %}
+  <table class="table table-hover m-auto table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Nom du module</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Modifier</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for module in modulesList %}
+        <tr class="table-light">
+          <th scope="row">{{module.title}}</th>
+          <td>{{module.category.title}}</td>
+          <td class="text-center">
+            <a href="">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+          </td>
         </tr>
-        </tbody>
-      </table>
+      {% endfor %}
+    </tbody>
+  </table>
 
 </section>
 

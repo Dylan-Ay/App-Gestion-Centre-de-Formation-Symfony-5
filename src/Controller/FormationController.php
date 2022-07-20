@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Formation;
 use App\Entity\Category;
 use App\Entity\Module;
+use App\Repository\ModuleRepository;
 
 class FormationController extends AbstractController
 {
@@ -27,13 +28,14 @@ class FormationController extends AbstractController
     /**
      * @Route("/modules", name="app_module")
      */
-    public function modulesList(ManagerRegistry $doctrine): Response
+    public function modulesList(ManagerRegistry $doctrine, ModuleRepository $module): Response
     {
 
         $modules = $doctrine->getRepository(Module::class)->findAll();
 
         return $this->render('formation/modules.html.twig', [
             'modulesList' => $modules
+            // 'modulesCategories' => $module
         ]);
     }
 

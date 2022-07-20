@@ -32,6 +32,38 @@ header .navbar-nav {
   transform: scale(1.05);
 }
 
+.fa-pen-to-square:hover {
+  color: #3498db;
+}
+
+.fa-trash:hover {
+  color: #e74c3c;
+}
+
+.btn-actions-container {
+  border-top: 1px solid black;
+}
+
+.btn-action {
+  width: 219px;
+  transition: 0.25s;
+  max-width: 100%;
+}
+.btn-action:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em #2a2826;
+  transform: translateY(-0.25em);
+}
+
+.btn-return {
+  transition: 0.25s;
+  width: 367px;
+  max-width: 100%;
+}
+.btn-return:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em #2a2826;
+  transform: translateY(-0.25em);
+}
+
 /* Categories */
 #sessions-list .date-container {
   width: 350px;
@@ -50,7 +82,53 @@ header .navbar-nav {
   font-size: 30px;
 }
 
+#interns-list table .birthdate-cell {
+  width: 156px;
+}
+#interns-list table .age-cell {
+  width: 65px;
+}
+#interns-list .btn-return {
+  margin: 4rem auto 0 auto;
+}
+
+#detail-intern .intern-record {
+  width: 700px;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+#detail-intern .intern-record ul {
+  padding: 30px;
+}
+#detail-intern .intern-record h3 {
+  padding: 15px;
+  border-bottom: 1px solid black;
+  background-color: #e74c3c;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+#add-intern form {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  border: #2c3e50 solid 1px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 15px;
+  padding: 50px;
+}
+#add-intern form option {
+  overflow-y: overlay;
+  padding: 10px 0;
+}
+
 #modules-list table {
   width: 760px;
   max-width: 100%;
+}
+#modules-list table thead th {
+  background-color: white;
 }/*# sourceMappingURL=style.css.map */

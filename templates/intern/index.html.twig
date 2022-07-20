@@ -5,27 +5,28 @@
 {% block body %}
 
 <h1>Les Stagiaires</h1>
-<section id="interns-list" class="py-5">
+<section id="interns-list" class="py-5 table-responsive ">
 
-    <table class="table table-hover mt-4">
+    <table class="table table-hover mt-4 table-bordered">
         <thead>
           <tr>
             <th scope="col">Prenom</th>
             <th scope="col">Nom</th>
-            <th scope="col">Date de naissance</th>
-            <th scope="col">Age</th>
+            <th scope="col" class="birthdate-cell">Date de naissance</th>
+            <th class="age-cell" scope="col">Age</th>
             <th scope="col">Sexe</th>
             <th scope="col">Email</th>
             <th scope="col">Adresse</th>
             <th scope="col">Téléphone</th>
             <th scope="col">Sessions prévues</th>
+            <th scope="col">Fiche stagiaire</th>
           </tr>
         </thead>
         <tbody>
         {% for intern in internsList %}
 
-        <tr class="table-active">
-            <td>{{intern.firstName}}</td>
+        <tr class="table-light">
+            <td class="border-right">{{intern.firstName}}</td>
             <td>{{intern.lastName}}</td>
             <td>{{intern.birthDate | date("d/m/Y")}}</td>
             <td>{{intern.getAge}}</td>
@@ -35,20 +36,31 @@
             <td>{{intern.phone}}</td>
             <td>
               <ul>
-                {% for internsession in intern.sessions %}
-                <li>
-                  <span class="fw-bold">{{internsession.formation.title}}</span>
+                {% if intern.sessions | length > 0 %}
+                  {% for internsession in intern.sessions %}
+                  <li>
+                    <span class="fw-bold">{{internsession.formation.title}}</span>
                     <br>( du {{internsession.datestart| date("d/m/Y")}} au 
                     {{internsession.dateend| date("d/m/Y") }} )
-                </li>
-                {% endfor %}
+                  </li>
+                  {% endfor %}
+                {% else %}
+                    Aucune inscription enregistrée.
+                {% endif %}
               </ul>
+            </td>
+            <td class="text-center">
+              <a href="{{ path('show_intern', {'id': intern.id}) }}">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
             </td>
         </tr>
 
         {% endfor %}
         </tbody>
       </table>
+
+      <a href="{{ path('add_intern') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau stagiaire</a>
 </section>
 
 {% endblock %}

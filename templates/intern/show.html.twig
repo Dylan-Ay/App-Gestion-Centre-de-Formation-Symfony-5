@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche stagiaire de {{intern.firstname}} {{intern.lastname}}{% endblock %}
+
+{% block body %}
+
+<section id="detail-intern" class="py-5" >
+
+    <article class="intern-record m-auto">
+       <h3 class="text-center m-0">
+            <i class="fa-solid fa-address-card"></i> Fiche stagiaire
+       </h3>
+       <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+            <li class="display-5 mb-2">{{intern.firstname}} {{intern.lastname}}</li>
+
+            <li>
+                <span class="fw-bold pe-1">Date de naissance: </span> {{intern.birthdate| date("d/m/Y")}} ( {{intern.getAge}} )
+            </li>
+
+            <li>
+                <span class="fw-bold pe-1">Sexe: </span>{{intern.gender}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-1">Adresse Email: </span> {{intern.email}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-1">Adresse Postale: </span> {{intern.getFullAdress}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-1">Téléphone: </span> {{intern.phone}}
+            </li>
+       </ul>
+
+       <ul class="d-flex flex-column gap-2">
+           <h4 class="fw-bold">Sessions prévues :</h4>
+           {% if intern.sessions | length > 0 %}
+                {% for internsession in intern.sessions %}
+                <li class="ms-3">
+                    <span class="fw-bold">{{internsession.formation.title}}</span>
+                    <br>( du {{internsession.datestart| date("d/m/Y")}} au 
+                    {{internsession.dateend| date("d/m/Y") }} )
+                </li>
+                {% endfor %}
+            {% else %}
+                <span>{{intern.firstname}} {{intern.lastname}} n'est inscrit(e) à aucune session.</span>
+            {% endif %}
+       </ul>
+       <div class="btn-actions-container d-flex justify-content-evenly py-4">
+
+            <a href="{{ path('edit_intern', {'id': intern.id}) }}" class="btn btn-success btn-action">Modifier les informations</a>
+
+            <a href="{{ path('app_interns') }}" class="btn btn-danger btn-action">Supprimer le stagiaire</a>
+            
+        </div>
+
+    </article>
+
+    <div class="d-flex justify-content-center mt-5">
+        <a href="{{ path('app_interns') }}" class="btn btn-primary btn-return">Retour à la liste des stagiaires</a>
+    </div>
+
+</section>
+{% endblock %}

@@ -39,6 +39,23 @@ class ModuleRepository extends ServiceEntityRepository
         }
     }
 
+    // public function findDistinctCategory()
+    // {
+    //     $conn = $this->getEntityManager()->getConnection();
+
+    //     $sql = '
+    //         SELECT DISTINCT c.title   
+    //         FROM category c
+    //         INNER JOIN module m
+    //         ON m.category_id = c.id;
+    //     ';
+    //     $stmt = $conn->prepare($sql);
+    //     $result = $stmt->executeQuery();
+
+    //     return $result->fetchAssociative();
+            
+    // }
+
 //    /**
 //     * @return Module[] Returns an array of Module objects
 //     */
