@@ -26,6 +26,7 @@ class InternController extends AbstractController
         ]);
     }
 
+    // Ajoute et modifie les informations d'un stagiaire
     
     /**
      * @Route("/stagiaire/add", name ="add_intern")
@@ -41,10 +42,11 @@ class InternController extends AbstractController
         $form = $this->createForm(InternType::class, $intern);
         
         // Permet d'analyser les données insérées dans le form et de récupérer les données pour les mettre dans le formulaire
-        $form->handleRequest($request);
+        $form->handleRequest($request); 
         
         // Vérifie que le formulaire a été soumit et que les champs sont valides (similiaire à filter_input)
         if ($form->isSubmitted() && $form->isValid()) {
+
             $intern = $form->getData(); //Permet d'hydrater l'objet employe
             
             $internManager = $doctrine->getManager(); 
@@ -58,6 +60,28 @@ class InternController extends AbstractController
             'form' => $form->createView(), // Génère le formulaire visuellement
             'edit' => $intern->getId()
         ]);
+    }
+
+    // Effectue la suppression d'un stagiaire
+
+    /**
+     * @Route("stagiaire/{id}/delete", name="delete_intern")
+     */
+    public function delete(ManagerRegistry $doctrine, Intern $intern): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $internDeleted = $intern->getFullName();
+
+        $entityManager->remove($intern);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            "Le stagiaire $internDeleted a bien été supprimé"
+        );
+
+        return $this->redirectToRoute('app_interns');
     }
     
     // Affiche le detail d'un stagiaire

@@ -3,10 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Intern;
+use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,9 +35,11 @@ class InternType extends AbstractType
             ->add('city', TextType::class)
             ->add('adress', TextType::class)
             ->add('country', TextType::class)
-            ->add('phone', TextType::class)
-            ->add('sessions')
-        ;
+            ->add('phone', TelType::class)
+            ->add('sessions', EntityType::class,[
+                'class'=> Session::class,
+                'multiple' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

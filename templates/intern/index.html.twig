@@ -7,6 +7,13 @@
 <h1>Les Stagiaires</h1>
 <section id="interns-list" class="py-5 table-responsive ">
 
+  {% for message in app.flashes('notice') %}
+    <div class="alert-warning text-center mb-5 py-2">
+        {{ message }}
+        <i class="fa-solid fa-thumbs-up"></i>
+    </div>
+  {% endfor %}  
+
     <table class="table table-hover mt-4 table-bordered">
         <thead>
           <tr>

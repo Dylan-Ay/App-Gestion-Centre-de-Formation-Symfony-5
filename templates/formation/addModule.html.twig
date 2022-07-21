@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un module{% endblock %}
+
+{% block body %}
+
+{% if edit %}
+    <h1>Modification d'un module</h1>
+    {% else %}
+    <h1>Ajout d'un module</h1>
+{% endif %}
+
+<section id="add-intern" class="py-5">
+    
+    {# Affiche le formulaire récupéré depuis le controler d'Entreprise #}
+    {{ form_start(formAddModule) }}
+
+    {% for message in app.flashes('notice') %}
+        <div class="text-center alert-warning py-1">
+            {{ message }}
+            <i class="ps-1 fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
+
+    <div class="row justify-content-between pb-5">
+        {# Intitulé et catégorie du module #}
+        <div class="col-6 input-container">
+            {{ form_row(formAddModule.title, {'label':  "Intitulé du module", 'attr' : {'class' : 'form-control' }} ) }}
+        </div>
+
+        
+        <div class="col-6">
+            {{ form_row(formAddModule.category, {'label': 'Catégorie du module', 'attr' : {'class' : 'form-control' }} ) }}
+        </div>
+    </div>
+    
+
+    {# Submit du formulaire #}
+    <div class="d-flex justify-content-center">
+        {% if edit %}
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Sauvegarder les modifications</button>
+            {% else %}
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Ajouter le module</button>    
+        {% endif %}
+    </div>
+
+    <span class="text-center">Ou</span>
+
+    {# Seconde option du formulaire #}
+    <div class="text-center">
+        <a href="{{path('app_modules') }}" class="btn btn-primary btn-return">Retourner à la liste des modules</a>
+    </div>
+
+    {{ form_end(formAddModule)}}
+
+</section>
+
+{% endblock %}
+    

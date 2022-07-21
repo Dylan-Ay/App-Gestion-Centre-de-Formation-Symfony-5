@@ -6,13 +6,21 @@
 
 <h1>Gestion des modules</h1>
 <section id="modules-list" class="py-5">
+  
+{% for message in app.flashes('notice') %}
+    <div class="alert-warning text-center mb-5 py-2">
+        {{ message }}
+        <i class="fa-solid fa-thumbs-up"></i>
+    </div>
+{% endfor %}
 
   <table class="table table-hover m-auto table-bordered">
     <thead>
       <tr>
         <th scope="col">Nom du module</th>
         <th scope="col">Catégorie</th>
-        <th scope="col">Modifier</th>
+        <th class="text-center" scope="col">Modifier</th>
+        <th class="text-center" scope="col">Supprimer</th>
       </tr>
     </thead>
     <tbody>
@@ -21,14 +29,21 @@
           <th scope="row">{{module.title}}</th>
           <td>{{module.category.title}}</td>
           <td class="text-center">
-            <a href="">
+            <a href="{{ path('edit_module', {'id': module.id}) }}">
               <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{ path('module_delete', {'id': module.id}) }}">
+              <i class="fa-solid fa-trash"></i>
             </a>
           </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+
+  <a href="{{ path('add_module') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau module</a>
 
 </section>
 

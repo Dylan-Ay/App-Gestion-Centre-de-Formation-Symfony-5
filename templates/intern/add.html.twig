@@ -59,12 +59,12 @@
     </div>
 
     {# Sessions du formulaires #}
-        {{ form_row(form.sessions, {'label': 'Sessions :','attr' : {'class' : 'form-control' }} ) }}
+        {{ form_row(form.sessions, {'label': 'Sessions :','attr' : {'class' : 'form-control p-0' }} ) }}
         
     {# Submit du formulaire #}
     <div class="d-flex justify-content-center">
         {% if edit %}
-            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Modifier les informations</button>
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Sauvegarder les modifications</button>
             {% else %}
             <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Ajouter le stagiaire</button>    
         {% endif %}

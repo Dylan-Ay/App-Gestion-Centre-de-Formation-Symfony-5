@@ -64,6 +64,35 @@ header .navbar-nav {
   transform: translateY(-0.25em);
 }
 
+.flash-notice {
+  background-color: #e0685c;
+  padding: 11px;
+  border-radius: 10px;
+  color: white;
+  margin: auto;
+  max-width: 480px;
+}
+
+.input-container {
+  position: relative;
+}
+.input-container ul {
+  margin: 0;
+  list-style: none;
+}
+.input-container ul li {
+  position: absolute;
+  top: 65px;
+  color: #e32410;
+}
+
+.alert-warning {
+  width: 430px;
+  border-radius: 10px;
+  margin: auto;
+  background-color: #fde1b6;
+}
+
 /* Categories */
 #sessions-list .date-container {
   width: 350px;
@@ -73,6 +102,9 @@ header .navbar-nav {
   border-radius: 7px;
   color: white;
   margin: auto;
+}
+#sessions-list .btn-return {
+  width: unset;
 }
 #sessions-list .card {
   width: 23em;
@@ -114,21 +146,31 @@ header .navbar-nav {
   margin: auto;
   flex-direction: column;
   gap: 14px;
-  max-width: 640px;
+  max-width: 760px;
   border: #2c3e50 solid 1px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 15px;
   padding: 50px;
 }
+#add-intern form select {
+  max-width: 100%;
+}
 #add-intern form option {
-  overflow-y: overlay;
-  padding: 10px 0;
+  padding: 15px 0;
+}
+@media screen and (max-width: 992.5px) {
+  #add-intern form option {
+    overflow: auto;
+  }
 }
 
 #modules-list table {
-  width: 760px;
+  width: 800px;
   max-width: 100%;
 }
 #modules-list table thead th {
   background-color: white;
+}
+#modules-list .btn-return {
+  margin: 4rem auto 0 auto;
 }/*# sourceMappingURL=style.css.map */
