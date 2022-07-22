@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Program;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,15 +11,19 @@ use App\Entity\Session;
 
 class SessionController extends AbstractController
 {
+    // Affiche le detail d'une session
     /**
-     * @Route("/session", name="app_session")
+     * @Route("/session/detailSession/{id}", name="session_detail")
      */
-    public function index(ManagerRegistry $doctrine): Response
+    public function sessionDetail(Session $session, ManagerRegistry $doctrine): Response
     {
-        $sessions = $doctrine->getRepository(Session::class)->findAll();
-
-        return $this->render('session/index.html.twig', [
-            'listSessions' => $sessions,
+        $program = $doctrine->getRepository(Program::class)->findBy([
+            'session' => $session->getId()
+        ]);
+        
+        return $this->render('session/detail.html.twig',[
+            'session' => $session,
+            'program' => $program
         ]);
     }
 }

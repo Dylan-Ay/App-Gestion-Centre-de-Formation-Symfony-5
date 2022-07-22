@@ -6,13 +6,14 @@
 
 <h1>Les Stagiaires</h1>
 <section id="interns-list" class="py-5 table-responsive ">
-
   {% for message in app.flashes('notice') %}
     <div class="alert-warning text-center mb-5 py-2">
         {{ message }}
         <i class="fa-solid fa-thumbs-up"></i>
     </div>
   {% endfor %}  
+
+<a href="{{ path('add_intern') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau stagiaire</a>
 
     <table class="table table-hover mt-4 table-bordered">
         <thead>
@@ -33,22 +34,29 @@
         {% for intern in internsList %}
 
         <tr class="table-light">
-            <td class="border-right">{{intern.firstName}}</td>
-            <td>{{intern.lastName}}</td>
+          
+          <td class="border-right">
+            <a class="blue-hover" href="{{ path('intern_detail', {'id': intern.id}) }}">{{intern.firstName}}</a>
+          </td>
+          <td>
+            <a class="blue-hover" href="{{ path('intern_detail', {'id': intern.id}) }}">{{intern.lastName}}</a>
+          </td>
             <td>{{intern.birthDate | date("d/m/Y")}}</td>
             <td>{{intern.getAge}}</td>
             <td>{{intern.gender}}</td>
             <td>{{intern.email}}</td>
             <td>{{intern.getFullAdress}}</td>
             <td>{{intern.phone}}</td>
-            <td>
-              <ul>
+            <td class="session-cell">
+              <ul class="d-flex flex-column gap-4">
                 {% if intern.sessions | length > 0 %}
                   {% for internsession in intern.sessions %}
                   <li>
-                    <span class="fw-bold">{{internsession.formation.title}}</span>
-                    <br>( du {{internsession.datestart| date("d/m/Y")}} au 
-                    {{internsession.dateend| date("d/m/Y") }} )
+                    <a class="blue-hover" href="{{ path('session_detail', {'id': internsession.id}) }}">
+                      <span class="fw-bold">{{internsession.formation.title}}</span>
+                    </a>
+                      <br>( du {{internsession.datestart| date("d/m/Y")}} au 
+                      {{internsession.dateend| date("d/m/Y") }} )
                   </li>
                   {% endfor %}
                 {% else %}
@@ -57,8 +65,8 @@
               </ul>
             </td>
             <td class="text-center">
-              <a href="{{ path('show_intern', {'id': intern.id}) }}">
-                <i class="fa-solid fa-pen-to-square"></i>
+              <a href="{{ path('intern_detail', {'id': intern.id}) }}">
+                <i class="fa-solid fa-pen-to-square blue-hover"></i>
               </a>
             </td>
         </tr>
@@ -67,7 +75,6 @@
         </tbody>
       </table>
 
-      <a href="{{ path('add_intern') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau stagiaire</a>
 </section>
 
 {% endblock %}

@@ -15,6 +15,13 @@ a:hover {
   color: unset;
 }
 
+.blue-hover {
+  transition: 0.15s ease-in-out;
+}
+.blue-hover:hover {
+  color: #3498db;
+}
+
 header .navbar-collapse {
   flex-grow: 0.95;
 }
@@ -30,10 +37,6 @@ header .navbar-nav {
 }
 #formations-list .card:hover {
   transform: scale(1.05);
-}
-
-.fa-pen-to-square:hover {
-  color: #3498db;
 }
 
 .fa-trash:hover {
@@ -97,7 +100,6 @@ header .navbar-nav {
 #sessions-list .date-container {
   width: 350px;
   max-width: 100%;
-  background-color: #f39c12;
   padding: 0.7em 0.3em 0.7em 2.75em;
   border-radius: 7px;
   color: white;
@@ -121,7 +123,7 @@ header .navbar-nav {
   width: 65px;
 }
 #interns-list .btn-return {
-  margin: 4rem auto 0 auto;
+  margin: auto;
 }
 
 #detail-intern .intern-record {
@@ -164,6 +166,23 @@ header .navbar-nav {
   }
 }
 
+#detail-session .session-record {
+  width: 900px;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+#detail-session .session-record ul {
+  padding: 30px;
+}
+#detail-session .session-record h3 {
+  padding: 15px;
+  border-bottom: 1px solid black;
+  background-color: #e74c3c;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
 #modules-list table {
   width: 800px;
   max-width: 100%;
@@ -172,5 +191,5 @@ header .navbar-nav {
   background-color: white;
 }
 #modules-list .btn-return {
-  margin: 4rem auto 0 auto;
+  margin: auto;
 }/*# sourceMappingURL=style.css.map */

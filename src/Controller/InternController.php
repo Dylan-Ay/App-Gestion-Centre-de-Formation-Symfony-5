@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Intern;
+use App\Entity\Session;
 use App\Form\InternType;
 
 class InternController extends AbstractController
@@ -32,7 +33,7 @@ class InternController extends AbstractController
      * @Route("/stagiaire/add", name ="add_intern")
      * @Route("/stagiaire/{id}/edit", name ="edit_intern")
      */
-    public function add(ManagerRegistry $doctrine, Intern $intern = null, Request $request): Response
+    public function editIntern(ManagerRegistry $doctrine, Intern $intern = null, Request $request): Response
     {
         if (!$intern){
             $intern = new Intern();
@@ -53,7 +54,7 @@ class InternController extends AbstractController
             $internManager->persist($intern); // Prepare les données
             $internManager->flush(); // Execute la request (insert into)
 
-            return $this->redirectToRoute('show_intern', ['id' => $intern->getId() ]);
+            return $this->redirectToRoute('intern_detail', ['id' => $intern->getId() ]);
         }
         // View pour afficher le formulaire d'ajout
         return $this->render('intern/add.html.twig', [
@@ -67,7 +68,7 @@ class InternController extends AbstractController
     /**
      * @Route("stagiaire/{id}/delete", name="delete_intern")
      */
-    public function delete(ManagerRegistry $doctrine, Intern $intern): Response
+    public function deleteIntern (ManagerRegistry $doctrine, Intern $intern): Response
     {
         $entityManager = $doctrine->getManager();
 
@@ -87,12 +88,15 @@ class InternController extends AbstractController
     // Affiche le detail d'un stagiaire
     
     /**
-     * @Route ("stagiaire/{id}", name= "show_intern")
+     * @Route ("stagiaire/{id}", name= "intern_detail")
      */
-    public function show (Intern $intern) : Response
+    public function internDetail (Intern $intern, ManagerRegistry $doctrine) : Response
     {
+        $session = $doctrine->getRepository(Session::class)->findAll();
+
         return $this->render('intern/show.html.twig', [
-            "intern" => $intern
+            "intern" => $intern,
+            "session" => $session
         ]);
     }
 }

@@ -36,10 +36,13 @@
 
        <ul class="d-flex flex-column gap-2">
            <h4 class="fw-bold">Sessions prévues :</h4>
-           {% if intern.sessions | length > 0 %}
+
+            {% if intern.sessions | length > 0 %}
                 {% for internsession in intern.sessions %}
                 <li class="ms-3">
-                    <span class="fw-bold">{{internsession.formation.title}}</span>
+                    <a class="blue-hover" href="{{ path('session_detail', {'id': internsession.id}) }}">
+                        <span class="fw-bold">{{internsession.formation.title}}</span>
+                    </a>
                     <br>( du {{internsession.datestart| date("d/m/Y")}} au 
                     {{internsession.dateend| date("d/m/Y") }} )
                 </li>

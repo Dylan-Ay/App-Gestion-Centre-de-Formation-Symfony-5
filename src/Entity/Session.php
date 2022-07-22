@@ -166,6 +166,28 @@ class Session
         return $this;
     }
 
+    // METHODS
+
+    // Method qui calcul le nombre de places restantes
+    public function leftPlacesNumber() : ?int
+    {
+    
+        $internsRegistredNumber = 0;
+
+        for ($i=0; $i <= count($this->interns); $i++) { 
+            $internsRegistredNumber = $i;
+        }
+        
+        return  $this->place_number - $internsRegistredNumber;
+    }
+
+    // Method qui calcul le nombre de places reservées
+    public function reservedPlacesNumber(): ?int
+    {
+       return $this->place_number - $this->leftPlacesNumber();
+    }
+
+    // TO STRING
     public function __toString()
     {
         return $this->formation->getTitle(). " ( du ". $this->date_start->format("d/m/Y"). " au ". $this->date_end->format("d/m/Y"). " )";

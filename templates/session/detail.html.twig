@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail de la session{% endblock %}
+
+{% block body %}
+
+<section id="detail-session" class="py-5" >
+
+    <article class="session-record m-auto">
+        <h3 class="text-center m-0">
+            <i class="fa-solid fa-calendar-days pe-1"></i> Detail de la Session
+        </h3>
+        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                <li class="display-5 mb-2"></li>
+
+                <li>
+                    <span class="fw-bold pe-1">Intitulé de la formation :</span> {{session.formation.title}} 
+                </li>
+
+                <li>
+                    <span class="fw-bold pe-1">Débute le : </span> {{session.datestart| format_datetime('full', 'short', locale='fr') }}
+                </li>
+
+                <li>
+                    <span class="fw-bold pe-1">Termine le : </span> {{session.dateend| format_datetime('full', 'short', locale='fr') }}
+                </li>
+
+                <li>
+                    <span class="fw-bold pe-1">Nombre de places disponibles : </span>  {{session.placenumber}}
+                </li>
+
+                <li>
+                    <span class="fw-bold pe-1">Nombre de places restantes : </span> {{session.leftPlacesNumber}} 
+                </li>
+        </ul>
+
+        <ul class="d-flex flex-column gap-2">
+            <h4 class="fw-bold">Stagiaires inscrits :</h4>
+            {% if session.interns | length > 0 %}
+                    {% for sessionintern in session.interns %}
+                    <li class="ms-3">
+                        <a class="blue-hover" href="{{ path('intern_detail', {'id': sessionintern.id}) }}">
+                            {{sessionintern.fullname}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <span>Aucun stagiaire n'est inscrit à cette session pour le moment.</span>
+            {% endif %}
+        </ul>
+
+        <ul class="d-flex flex-column gap-2">
+            <h4 class="fw-bold">Programme de la session :</h4>
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom du module</th>
+                    <th scope="col">Durée en jours</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for item in program %}
+                        <td>{{item.module.title}}</td>
+                        <td>{{item.numberdays}}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+
+        </ul>
+        
+    </article>
+
+    <div class="d-flex justify-content-center mt-5">
+        <a href="{{ path('app_formation') }}" class="btn btn-primary btn-return">Retour à la liste des formations</a>
+    </div>
+
+</section>
+{% endblock %}

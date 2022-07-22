@@ -2,21 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Formation;
 use App\Entity\Module;
+use App\Entity\Session;
 use App\Form\ModuleType;
-use App\Repository\ModuleRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class FormationController extends AbstractController
 {
-    // Affiche la liste des formations
-
+    // Affiche la liste des formations avec leurs sessions
     /**
      * @Route("/formations", name="app_formation")
      */
@@ -24,17 +23,20 @@ class FormationController extends AbstractController
     {
         $formations = $doctrine->getRepository(Formation::class)->findAll();
 
+        $session = $doctrine->getRepository(Session::class)->findAll();
+
         return $this->render('formation/index.html.twig', [
-            'formationsList' => $formations,
+            'formations' => $formations,
+            'session' => $session
         ]);
     }
-
+    
     //Affiche la liste des modules
 
     /**
      * @Route("/modules", name="app_modules")
      */
-    public function modulesList(ManagerRegistry $doctrine, ModuleRepository $module): Response
+    public function modulesList(ManagerRegistry $doctrine): Response
     {
         $modules = $doctrine->getRepository(Module::class)->findAll();
 
@@ -50,7 +52,7 @@ class FormationController extends AbstractController
      * @Route("/module/add", name="add_module")
      * @Route("/module/{id}/edit", name= "edit_module")
      */
-    public function addModule(ManagerRegistry $doctrine, Module $module = null, Request $request) : Response
+    public function editModule(ManagerRegistry $doctrine, Module $module = null, Request $request) : Response
     {
         if (!$module){
             $module = new Module();
@@ -85,10 +87,39 @@ class FormationController extends AbstractController
         ]);
     }
 
+    // Ajoute une catégorie
+
+    public function addCategory(ManagerRegistry $doctrine, Category $category = null, Request $request) : Response
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $category = $form->getData();
+            $categoryManager = $doctrine->getManager();
+
+            $categoryTitle = $category->getTitle();
+
+            $categoryManager->persist($category);
+            $categoryManager->flush();
+
+            $this->addFlash(
+                'notice',
+                "Le module $categoryTitle a bien été ajouté"
+            );
+
+        }
+
+        return $this->render('formation/addCategory.html.twig', [
+            'formAddCategory' => $form->createView()
+        ]);
+    }
+
     /**
      * @Route("/module/delete/{id}", name="module_delete")
      */
-    public function delete(ManagerRegistry $doctrine, Module $module) : Response
+    public function deleteModule(ManagerRegistry $doctrine, Module $module) : Response
     {
         $moduleManager = $doctrine->getManager();
 
