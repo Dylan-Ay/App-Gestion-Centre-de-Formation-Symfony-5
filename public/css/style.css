@@ -26,7 +26,7 @@ header .navbar-collapse {
   flex-grow: 0.95;
 }
 header .navbar-nav {
-  width: 50%;
+  width: 85%;
   justify-content: space-between;
 }
 
@@ -86,6 +86,8 @@ header .navbar-nav {
 .input-container ul li {
   position: absolute;
   top: 65px;
+  left: 0;
+  padding-left: 1.5rem;
   color: #e32410;
 }
 
@@ -143,7 +145,7 @@ header .navbar-nav {
   border-top-left-radius: 10px;
 }
 
-#add-intern form {
+#add-intern form, #edit-module form, #edit-category form {
   display: flex;
   margin: auto;
   flex-direction: column;
@@ -154,14 +156,14 @@ header .navbar-nav {
   border-radius: 15px;
   padding: 50px;
 }
-#add-intern form select {
+#add-intern form select, #edit-module form select, #edit-category form select {
   max-width: 100%;
 }
-#add-intern form option {
+#add-intern form option, #edit-module form option, #edit-category form option {
   padding: 15px 0;
 }
 @media screen and (max-width: 992.5px) {
-  #add-intern form option {
+  #add-intern form option, #edit-module form option, #edit-category form option {
     overflow: auto;
   }
 }
@@ -183,13 +185,13 @@ header .navbar-nav {
   border-top-left-radius: 10px;
 }
 
-#modules-list table {
+#modules-list table, #categories-list table {
   width: 800px;
   max-width: 100%;
 }
-#modules-list table thead th {
+#modules-list table thead th, #categories-list table thead th {
   background-color: white;
 }
-#modules-list .btn-return {
+#modules-list .btn-return, #categories-list .btn-return {
   margin: auto;
 }/*# sourceMappingURL=style.css.map */

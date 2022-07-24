@@ -4,9 +4,9 @@
 {% block title %}
 
     {% if edit %}
-        Modification d'un module
+        Modification d'une catégorie
     {% else %}
-        Ajout d'un module
+        Ajout d'une catégorie
     {% endif %}
 
 {% endblock %}
@@ -16,15 +16,15 @@
 {% block body %}
 
 {% if edit %}
-    <h1>Modification d'un module</h1>
+    <h1>Modification d'une catégorie</h1>
     {% else %}
-    <h1>Ajout d'un module</h1>
+    <h1>Ajout d'une catégorie</h1>
 {% endif %}
 
-<section id="add-intern" class="py-5">
+<section id="edit-category" class="py-5">
     
     {# Affiche le formulaire récupéré depuis le controler d'Entreprise #}
-    {{ form_start(formAddModule) }}
+    {{ form_start(form) }}
 
     {% for message in app.flashes('notice') %}
         <div class="text-center alert-warning py-1">
@@ -33,15 +33,10 @@
         </div>
     {% endfor %}
 
-    <div class="row justify-content-between pb-5">
+    <div class="row justify-content-center pb-5">
         {# Intitulé et catégorie du module #}
-        <div class="col-6 input-container">
-            {{ form_row(formAddModule.title, {'label':  "Intitulé du module", 'attr' : {'class' : 'form-control' }} ) }}
-        </div>
-
-        
-        <div class="col-6">
-            {{ form_row(formAddModule.category, {'label': 'Catégorie du module', 'attr' : {'class' : 'form-control' }} ) }}
+        <div class="col-lg-8 input-container">
+            {{ form_row(form.title, {'label':  "Intitulé de la catégorie :", 'attr' : {'class' : 'form-control' }} ) }}
         </div>
     </div>
     
@@ -51,7 +46,7 @@
         {% if edit %}
             <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Sauvegarder les modifications</button>
             {% else %}
-            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Ajouter le module</button>    
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Ajouter la catégorie</button>    
         {% endif %}
     </div>
 
@@ -59,10 +54,10 @@
 
     {# Seconde option du formulaire #}
     <div class="text-center">
-        <a href="{{path('app_modules') }}" class="btn btn-primary btn-return">Retourner à la liste des modules</a>
+        <a href="{{path('app_categories') }}" class="btn btn-primary btn-return">Retourner à la liste des catégories</a>
     </div>
 
-    {{ form_end(formAddModule)}}
+    {{ form_end(form)}}
 
 </section>
 

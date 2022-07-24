@@ -69,8 +69,15 @@
                     
                 </tbody>
             </table>
-
         </ul>
+
+        <div class="btn-actions-container d-flex justify-content-evenly py-4">
+
+            <a href="{{ path('edit_session', {'id': session.id}) }}" class="btn btn-success btn-action">Modifier la session</a>
+
+            <a href="#" class="btn btn-danger btn-action" onclick="return confirm('Voulez vous vraiment supprimer cette session  ?')">Supprimer la session</a>
+    
+        </div>
         
     </article>
 

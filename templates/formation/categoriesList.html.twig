@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des catégories{% endblock %}
+
+{% block body %}
+
+<h1>Gestion des catégories</h1>
+
+<section id="categories-list" class="py-5">
+{% for message in app.flashes('notice') %}
+    <div class="alert-warning text-center mb-5 py-2">
+        {{ message }}
+        <i class="fa-solid fa-thumbs-up"></i>
+    </div>
+{% endfor %}
+
+
+  <a href="{{ path('add_category') }}" class="btn btn-warning btn-return d-block m-auto">Ajouter une nouvelle catégorie</a>
+
+
+  <table class="table table-hover m-auto table-bordered mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Nom de la catégorie</th>
+        <th class="text-center" scope="col">Modifier</th>
+        <th class="text-center" scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categoriesList %}
+        <tr class="table-light">
+          <th scope="row">{{category.title}}</th>
+          <td class="text-center">
+            <a href="{{ path('edit_category', {'id': category.id}) }}" class="blue-hover">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="{{ path('delete_category', {'id': category.id}) }}" onclick="return confirm('Voulez vous vraiment supprimer la catégorie «{{category.title}}» ?')">
+              <i class="fa-solid fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</section>
+
+{% endblock %}

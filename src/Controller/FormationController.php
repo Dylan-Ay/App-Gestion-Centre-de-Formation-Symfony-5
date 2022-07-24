@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Formation;
 use App\Entity\Module;
 use App\Entity\Session;
+use App\Form\CategoryType;
 use App\Form\ModuleType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,7 +26,7 @@ class FormationController extends AbstractController
 
         $session = $doctrine->getRepository(Session::class)->findAll();
 
-        return $this->render('formation/index.html.twig', [
+        return $this->render('formation/formationsList.html.twig', [
             'formations' => $formations,
             'session' => $session
         ]);
@@ -40,9 +41,8 @@ class FormationController extends AbstractController
     {
         $modules = $doctrine->getRepository(Module::class)->findAll();
 
-        return $this->render('formation/modules.html.twig', [
+        return $this->render('formation/modulesList.html.twig', [
             'modulesList' => $modules
-            // 'modulesCategories' => $module
         ]);
     }
 
@@ -81,38 +81,9 @@ class FormationController extends AbstractController
                 return $this->redirectToRoute('app_modules');
         }
 
-        return $this->render('formation/addModule.html.twig', [
-            'formAddModule' => $form->createView(),
+        return $this->render('formation/editModule.html.twig', [
+            'form' => $form->createView(),
             'edit' => $module->getId(),
-        ]);
-    }
-
-    // Ajoute une catégorie
-
-    public function addCategory(ManagerRegistry $doctrine, Category $category = null, Request $request) : Response
-    {
-        $form = $this->createForm(CategoryType::class, $category);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $category = $form->getData();
-            $categoryManager = $doctrine->getManager();
-
-            $categoryTitle = $category->getTitle();
-
-            $categoryManager->persist($category);
-            $categoryManager->flush();
-
-            $this->addFlash(
-                'notice',
-                "Le module $categoryTitle a bien été ajouté"
-            );
-
-        }
-
-        return $this->render('formation/addCategory.html.twig', [
-            'formAddCategory' => $form->createView()
         ]);
     }
 
@@ -134,6 +105,81 @@ class FormationController extends AbstractController
         );
 
         return $this->redirectToRoute('app_modules');
+    }
+
+    // Affiche la liste des catégories
+    /**
+     * @Route("/catégories", name= "app_categories")
+     */
+    public function categoriesList(ManagerRegistry $doctrine) : Response
+    {
+        $categories = $doctrine->getRepository(Category::class)->findAll();
+
+        return $this->render('formation/categoriesList.html.twig', [
+            'categoriesList' => $categories
+        ]);
+    }
+
+    // Ajoute une catégorie
+    /**
+     * @Route("/categorie/add", name= "add_category")
+     * @Route("/categorie/{id}/edit", name= "edit_category")
+     */
+
+    public function editCategory(ManagerRegistry $doctrine, Category $category = null, Request $request) : Response
+    {
+        if (!$category){
+            $category = new Category();
+        }
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()){
+            $category = $form->getData();
+
+            $categoryManager = $doctrine->getManager();
+
+            $categoryTitle = $category->getTitle();
+
+            $categoryManager->persist($category);
+            $categoryManager->flush();
+
+            $this->addFlash(
+                'notice',
+                "La catégorie $categoryTitle a bien été ajoutée"
+            );
+
+            return $this->redirectToRoute('app_categories');
+        }
+
+        return $this->render('formation/editCategory.html.twig', [
+            'form' => $form->createView(),
+            'edit' => $category->getId()
+        ]);
+    }
+
+    // Supprimer une catégorie
+
+    /**
+     * @Route("/categorie/{id}/delete", name="delete_category")
+     */
+    public function deleteCategory(ManagerRegistry $doctrine, Category $category) : Response
+    {
+        $categoryManager = $doctrine->getManager();
+
+        $categoryTitle = $category->getTitle();
+
+        $categoryManager->remove($category);
+        $categoryManager->flush();
+
+        $this->addFlash(
+            'notice',
+            "La catégorie $categoryTitle a bien été supprimée"
+        );
+
+        return $this->redirectToRoute('app_categories');
     }
 
     // public function detailFormation()

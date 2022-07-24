@@ -6,6 +6,13 @@
 
 <section id="detail-intern" class="py-5" >
 
+    {% for message in app.flashes('notice') %}
+        <div class="alert-warning text-center mb-3 py-2">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
+
     <article class="intern-record m-auto">
        <h3 class="text-center m-0">
             <i class="fa-solid fa-address-card"></i> Fiche stagiaire
@@ -55,7 +62,7 @@
 
             <a href="{{ path('edit_intern', {'id': intern.id}) }}" class="btn btn-success btn-action">Modifier les informations</a>
 
-            <a href="{{ path('delete_intern', {'id': intern.id}) }}" class="btn btn-danger btn-action">Supprimer le stagiaire</a>
+            <a href="{{ path('delete_intern', {'id': intern.id}) }}" class="btn btn-danger btn-action" onclick="return confirm('Voulez vous vraiment supprimer le stagiaire «{{intern.firstname}} {{intern.lastname}}» ?')">Supprimer le stagiaire</a>
             
         </div>
 

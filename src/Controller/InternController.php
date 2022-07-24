@@ -33,7 +33,7 @@ class InternController extends AbstractController
      * @Route("/stagiaire/add", name ="add_intern")
      * @Route("/stagiaire/{id}/edit", name ="edit_intern")
      */
-    public function editIntern(ManagerRegistry $doctrine, Intern $intern = null, Request $request): Response
+    public function editIntern(ManagerRegistry $doctrine, Intern $intern = null, Request $request, Session $session = null): Response
     {
         if (!$intern){
             $intern = new Intern();
@@ -48,16 +48,25 @@ class InternController extends AbstractController
         // Vérifie que le formulaire a été soumit et que les champs sont valides (similiaire à filter_input)
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // if ($session->leftPlacesNumber() === 0){
+            //     return $this->redirectToRoute('add_intern');
+            // }
+
             $intern = $form->getData(); //Permet d'hydrater l'objet employe
             
-            $internManager = $doctrine->getManager(); 
+            $internManager = $doctrine->getManager(); // Récupère le manager
             $internManager->persist($intern); // Prepare les données
             $internManager->flush(); // Execute la request (insert into)
 
-            return $this->redirectToRoute('intern_detail', ['id' => $intern->getId() ]);
+            $this->addFlash(
+                'notice',
+                "La fiche stagiaire a bien été mise à jour"
+            );
+
+            return $this->redirectToRoute('intern_detail', ['id' => $intern->getId()]);
         }
         // View pour afficher le formulaire d'ajout
-        return $this->render('intern/add.html.twig', [
+        return $this->render('intern/editIntern.html.twig', [
             'form' => $form->createView(), // Génère le formulaire visuellement
             'edit' => $intern->getId()
         ]);
@@ -94,7 +103,7 @@ class InternController extends AbstractController
     {
         $session = $doctrine->getRepository(Session::class)->findAll();
 
-        return $this->render('intern/show.html.twig', [
+        return $this->render('intern/detail.html.twig', [
             "intern" => $intern,
             "session" => $session
         ]);

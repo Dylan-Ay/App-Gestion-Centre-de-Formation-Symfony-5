@@ -30,7 +30,7 @@ header{
         flex-grow: .95;
     }
     .navbar-nav{
-        width: 50%;
+        width: 85%;
         justify-content: space-between;
     }
 }
@@ -95,6 +95,8 @@ header{
         & li{
             position: absolute;
             top: 65px;
+            left: 0;
+            padding-left: 1.5rem;
             color: #e32410;
         }
     }
@@ -172,7 +174,7 @@ header{
     }
 }
 
-#add-intern{
+#add-intern, #edit-module, #edit-category{
     form{
         display: flex;
         margin: auto;
@@ -222,7 +224,7 @@ header{
 
 // Modules
 
-#modules-list{
+#modules-list, #categories-list{
     table{
         width: 800px;
         max-width: 100%;
