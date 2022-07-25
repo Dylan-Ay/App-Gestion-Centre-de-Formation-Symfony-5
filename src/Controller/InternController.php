@@ -33,7 +33,7 @@ class InternController extends AbstractController
      * @Route("/stagiaire/add", name ="add_intern")
      * @Route("/stagiaire/{id}/edit", name ="edit_intern")
      */
-    public function editIntern(ManagerRegistry $doctrine, Intern $intern = null, Request $request, Session $session = null): Response
+    public function editIntern(ManagerRegistry $doctrine, Intern $intern = null, Request $request): Response
     {
         if (!$intern){
             $intern = new Intern();

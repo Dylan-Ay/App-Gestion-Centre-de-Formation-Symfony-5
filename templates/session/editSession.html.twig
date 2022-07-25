@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+
+    {% if edit %}
+        Modification d'une session
+    {% else %}
+        Ajout d'une session
+    {% endif %}
+
+{% endblock %}
+
+{# <------- BODY -------> #}
+
+{% block body %}
+
+{% if edit %}
+    <h1>Modification d'une session</h1>
+    {% else %}
+    <h1>Ajout d'une session</h1>
+{% endif %}
+
+<section id="edit-session" class="py-5">
+    
+    {# Affiche le formulaire récupéré depuis le SessionType #}
+    {{ form_start(form) }}
+
+    {{ form_row(form.formation, {'label': 'Formation :', 'attr' : {'class' : 'form-control' }} ) }}
+
+    {# Date de début et de fin de la session #}
+    <div class="row justify-content-between">
+        <div class="col-6 input-container">
+            {{ form_row(form.date_start, {'label':  "Date de début :", 'attr' : {'class' : 'form-control' }} ) }}
+        </div>
+
+        
+        <div class="col-6">
+            {{ form_row(form.date_end, {'label': 'Date de fin :', 'attr' : {'class' : 'form-control' }} ) }}
+        </div>
+    </div>
+    
+    {# Total de places disponibles #}
+    {{ form_row(form.place_number, {'label': 'Total de places disponibles :', 'attr' : {'class' : 'form-control' }} ) }}
+    
+    {# Liste des stagiaires inscrits à la session NON FONCTIONNEL #}
+    {# {{ form_row(form.interns, {'label': 'Liste des stagiaires inscrits :', 'attr' : {'class' : 'form-control' }} ) }} #}
+
+    {# Submit du formulaire #}
+    <div class="d-flex justify-content-center">
+        {% if edit %}
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Sauvegarder les modifications</button>
+            {% else %}
+            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Créer la Session</button>    
+        {% endif %}
+    </div>
+
+    <span class="text-center">Ou</span>
+
+    {# Seconde option du formulaire #}
+    <div class="text-center">
+        <a href="{{path('session_detail', {'id': edit}) }}" class="btn btn-primary btn-return">Retourner au détail de la session</a>
+    </div>
+
+    {{ form_end(form)}}
+
+</section>
+
+{% endblock %}
+    

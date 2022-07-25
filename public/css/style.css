@@ -22,6 +22,20 @@ a:hover {
   color: #3498db;
 }
 
+.red-hover {
+  transition: 0.15s ease-in-out;
+}
+.red-hover:hover {
+  color: #e74c3c;
+}
+
+.green-hover {
+  transition: 0.15s ease-in-out;
+}
+.green-hover:hover {
+  color: #18bc9c;
+}
+
 header .navbar-collapse {
   flex-grow: 0.95;
 }
@@ -145,7 +159,7 @@ header .navbar-nav {
   border-top-left-radius: 10px;
 }
 
-#add-intern form, #edit-module form, #edit-category form {
+#add-intern form, #edit-module form, #edit-category form, #edit-session form {
   display: flex;
   margin: auto;
   flex-direction: column;
@@ -156,20 +170,20 @@ header .navbar-nav {
   border-radius: 15px;
   padding: 50px;
 }
-#add-intern form select, #edit-module form select, #edit-category form select {
+#add-intern form select, #edit-module form select, #edit-category form select, #edit-session form select {
   max-width: 100%;
 }
-#add-intern form option, #edit-module form option, #edit-category form option {
+#add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option {
   padding: 15px 0;
 }
 @media screen and (max-width: 992.5px) {
-  #add-intern form option, #edit-module form option, #edit-category form option {
+  #add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option {
     overflow: auto;
   }
 }
 
 #detail-session .session-record {
-  width: 900px;
+  width: 800px;
   max-width: 100%;
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;

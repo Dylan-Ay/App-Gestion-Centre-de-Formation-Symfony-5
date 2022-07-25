@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,11 +13,15 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_start')
-            ->add('date_end')
+            ->add('date_start', DateTimeType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('date_end', DateTimeType::class, [
+                'widget' => 'single_text'
+            ])
             ->add('place_number')
             ->add('formation')
-            ->add('interns')
+            // ->add('interns')
         ;
     }
 
@@ -26,4 +31,5 @@ class SessionType extends AbstractType
             'data_class' => Session::class,
         ]);
     }
+
 }

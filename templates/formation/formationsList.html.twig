@@ -13,7 +13,7 @@
     {% for formation in formations %}
 
         <article class="card mb-3 p-0">
-            <h3 class="card-header">{{formation.title}}</h3>
+            <h4 class="card-header">{{formation.title}}</h4>
             <div class="card-body">
               <p class="card-text">{{formation.shortDescription}}</p>
             </div>
@@ -26,8 +26,12 @@
                         
                     <a href="{{ path('session_detail', {'id': session.id}) }}">
                         <div class="date-container bg-success mb-4 btn-return">
-                            <i class="fa-solid fa-calendar-days pe-2"></i>
-                            {{ session.datestart | date("d/m/Y") }} <span class="px-1">au</span> {{ session.dateend | date("d/m/Y") }}
+                            <div class="mb-2">
+                                <i class="fa-solid fa-calendar-days pe-2"></i>
+                                {{ session.datestart | date("d/m/Y") }} <span class="px-1">au</span> {{ session.dateend | date("d/m/Y") }}
+                            </div>
+
+                           <span class="fw-bold">Inscrits:</span> {{session.reservedPlacesNumber}} / {{session.placenumber}}
                         </div>
                     </a>   
                     

@@ -6,6 +6,13 @@
 
 <section id="detail-session" class="py-5" >
 
+    {% for message in app.flashes('notice') %}
+        <div class="alert-warning text-center mb-3 py-2">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
+
     <article class="session-record m-auto">
         <h3 class="text-center m-0">
             <i class="fa-solid fa-calendar-days pe-1"></i> Detail de la Session
@@ -33,24 +40,47 @@
                     <span class="fw-bold pe-1">Nombre de places restantes : </span> {{session.leftPlacesNumber}} 
                 </li>
         </ul>
-
-        <ul class="d-flex flex-column gap-2">
+        {# Stagiaires inscrits #}
+        <ul class="d-flex flex-column gap-2 m-0">
             <h4 class="fw-bold">Stagiaires inscrits :</h4>
             {% if session.interns | length > 0 %}
                     {% for sessionintern in session.interns %}
                     <li class="ms-3">
-                        <a class="blue-hover" href="{{ path('intern_detail', {'id': sessionintern.id}) }}">
+                        <a class="blue-hover pe-3" href="{{ path('intern_detail', {'id': sessionintern.id}) }}">
                             {{sessionintern.fullname}}
                         </a>
+
+                        <a href="{{ path('unsubscribe_intern', {'idSe': session.id, 'idIn': sessionintern.id}) }}"  onclick="return confirm('Voulez vous vraiment désinscrire le stagiaire «{{sessionintern.firstname}} {{sessionintern.lastname}}» ?')">
+                            <i class="fa-solid fa-user-minus red-hover"></i>
+                        </a>
                     </li>
+                    
+                    {# <a href="#" class="btn btn-primary">Inscrire un nouveau stagiaire</a> #}
                     {% endfor %}
                 {% else %}
                     <span>Aucun stagiaire n'est inscrit à cette session pour le moment.</span>
             {% endif %}
+            <br>
+        </ul>
+        {#  Stagiaires non inscrits #}
+        
+        <ul>
+            <h4 class="fw-bold">Stagiaires non inscrits :</h4>
+            {% for intern in internsNotInSession %}
+                <li class="ms-3">
+                    <a href="{{ path('intern_detail', {'id': intern.id}) }}" class="blue-hover pe-3">
+                        {{intern.firstname}} {{intern.lastname}}
+                    </a>
+                    <a href="{{ path('subscribe_intern', {'idSe': session.id, 'idIn': intern.id}) }}"  onclick="return confirm('Voulez vous vraiment inscrire le stagiaire «{{intern.firstname}} {{intern.lastname}} à cette session» ?')">
+                        <i class="fa-solid fa-user-plus green-hover"></i>
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
 
         <ul class="d-flex flex-column gap-2">
             <h4 class="fw-bold">Programme de la session :</h4>
+            {% if program | length > 0 %}
 
             <table class="table table-hover">
                 <thead>
@@ -70,9 +100,12 @@
                 </tbody>
             </table>
         </ul>
+        {% else %}
+            <span>Aucun programme n'a encore été établi.</span>
+        {% endif %}
 
         <div class="btn-actions-container d-flex justify-content-evenly py-4">
-
+            
             <a href="{{ path('edit_session', {'id': session.id}) }}" class="btn btn-success btn-action">Modifier la session</a>
 
             <a href="#" class="btn btn-danger btn-action" onclick="return confirm('Voulez vous vraiment supprimer cette session  ?')">Supprimer la session</a>
