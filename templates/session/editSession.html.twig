@@ -21,10 +21,11 @@
     <h1>Ajout d'une session</h1>
 {% endif %}
 
-<section id="edit-session" class="py-5">
+<section id="edit-session" class=" row py-5 justify-content-center">
     
     {# Affiche le formulaire récupéré depuis le SessionType #}
     {{ form_start(form) }}
+    <h5 class="text-center">Modifier les informations de la session</h5>
 
     {{ form_row(form.formation, {'label': 'Formation :', 'attr' : {'class' : 'form-control' }} ) }}
 
@@ -54,17 +55,34 @@
             <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Créer la Session</button>    
         {% endif %}
     </div>
-
-    <span class="text-center">Ou</span>
-
-    {# Seconde option du formulaire #}
-    <div class="text-center">
-        <a href="{{path('session_detail', {'id': edit}) }}" class="btn btn-primary btn-return">Retourner au détail de la session</a>
-    </div>
-
     {{ form_end(form)}}
+    <br>
+
+    
+
+    {# {{ form_start(formProgram) }}
+
+        <h5 class="text-center">Ajout d'un module au programme</h5>
+        <div class="row justify-content-between">
+            <div class="col-6 input-container">
+                {{ form_row(formProgram.module, {'label': 'Module :', 'value': '0', 'attr' : {'class' : 'form-control' }} ) }}
+            </div>
+            <div class="col-6 input-container">
+                {{ form_row(formProgram.numberDays, {'label': 'Durée du module (En jours) :', 'value': '', 'attr' : {'class' : 'form-control' }} ) }}
+            </div>
+        </div>
+        
+        {{ form_row(formProgram.session, {'label': 'Session :', 'value': '', 'attr' : {'class' : 'form-control' }} ) }}
+
+        <input type="submit" value="Ajouter le module" class="btn btn-success btn-return m-auto mt-3">
+
+    {{ form_end(formProgram)}} #}
 
 </section>
+
+<div class="text-center">
+    <a href="{{path('session_detail', {'id': edit}) }}" class="btn btn-primary btn-return">Retourner au détail de la session</a>
+</div>
 
 {% endblock %}
     

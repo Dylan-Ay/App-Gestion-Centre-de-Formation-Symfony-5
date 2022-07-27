@@ -187,6 +187,17 @@ class Session
        return $this->place_number - $this->leftPlacesNumber();
     }
 
+    // Change le statut de la session à complet
+    public function sessionStatus()
+    {
+        if ($this->leftPlacesNumber() === 0) {
+            return $this->status = "<div class='alert-danger'>Session complète</div>";
+        }
+        // else{
+        //     return $this->status = "test";
+        // }
+    }
+
     // TO STRING
     public function __toString()
     {

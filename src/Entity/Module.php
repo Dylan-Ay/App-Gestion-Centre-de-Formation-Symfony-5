@@ -106,6 +106,6 @@ class Module
 
     public function __toString()
     {
-       
+       return $this->title;
     }
 }

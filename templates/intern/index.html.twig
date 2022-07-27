@@ -16,7 +16,7 @@
 
 <a href="{{ path('add_intern') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau stagiaire</a>
 
-    <table class="table table-hover mt-4 table-bordered">
+    <table class="table table-hover mt-4 table-bordered table-striped">
         <thead>
           <tr>
             <th scope="col">Prenom</th>
@@ -34,7 +34,7 @@
         <tbody>
         {% for intern in internsList %}
 
-        <tr class="table-light">
+        <tr class="table-active">
           
           <td class="border-right">
             <a class="blue-hover" href="{{ path('intern_detail', {'id': intern.id}) }}">{{intern.firstName}}</a>

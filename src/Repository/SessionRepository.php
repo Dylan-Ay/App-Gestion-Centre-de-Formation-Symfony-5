@@ -77,6 +77,48 @@ class SessionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    // Affiche les prochaines sessions
+    public function findNextSessions()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Session s
+            WHERE s.date_start > :today'
+        )->setParameter('today', new \DateTime());
+        
+        return $query->getResult();
+    }
+
+    // Affiche les Sessions en cours
+    public function findCurrentSessions()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Session s
+            WHERE s.date_start <= :today AND s.date_end >= :today'
+        )->setParameter('today', new \DateTime());
+        
+        return $query->getResult();
+    }
+
+    // Affiche les Sessions passées
+    public function findPastSessions()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+                'SELECT s
+                FROM App\Entity\Session s
+                WHERE s.date_end < :today'
+            )->setParameter('today', new \DateTime());
+            
+            return $query->getResult();
+    }
+
 //    /**
 //     * @return Session[] Returns an array of Session objects
 //     */

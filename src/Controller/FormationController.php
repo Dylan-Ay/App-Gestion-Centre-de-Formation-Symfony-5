@@ -9,10 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Formation;
 use App\Entity\Module;
+use App\Entity\Program;
 use App\Entity\Session;
 use App\Form\CategoryType;
 use App\Form\ModuleType;
 use Symfony\Component\HttpFoundation\Request;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class FormationController extends AbstractController
 {
@@ -182,15 +185,41 @@ class FormationController extends AbstractController
         return $this->redirectToRoute('app_categories');
     }
 
-    // public function detailFormation()
-    // {
-    //     // TODO: Implement this method
-    // }
+    /**
+     * @Route("/formation/programme/{id}", name="programme-formation")
+     */
+    
+     public function formationProgram(ManagerRegistry $doctrine, Formation $formation)
+     {
+        // On définit les options du PDF
+        $pdfOptions = new Options();
 
-    // public function detailProgramm()
-    // {
-    //     // TODO: implement this method
-    // }
+        // Police par défaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
 
+        // On instancie Dompdf
+        $domPdf = new Dompdf($pdfOptions);
+
+        // On génère le html
+        $html = $this->renderView('formation/mypdf.html.twig',[
+            'formation' => $formation
+            ]);
+
+        $domPdf->loadHtml($html);
+        $domPdf->setPaper('A4', 'portrait');
+        $domPdf->render();
+
+        // On génère un nom de fichier
+
+        $fichier = 'Programme de la formation';
+
+        // On renvoie le PDF au navigateur
+        $domPdf->stream($fichier, [
+            'Attachment' => true
+        ]);
+
+        return new Response();
+    }
 
 }

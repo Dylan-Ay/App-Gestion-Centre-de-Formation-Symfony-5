@@ -37,9 +37,9 @@
                     
                     {% endfor %}
                 </li>
-                
+
                 <li class="list-group-item text-center py-4">
-                    <a href="#" class="btn btn-secondary btn-return">Télécharger le programme de la formation</a>
+                    <a href="{{ path('programme-formation', {'id': formation.id}) }}" class="btn btn-secondary btn-return">Télécharger le programme de la formation</a>
                 </li>
             </ul>
 

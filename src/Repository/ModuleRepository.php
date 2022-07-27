@@ -39,22 +39,38 @@ class ModuleRepository extends ServiceEntityRepository
         }
     }
 
-    // public function findDistinctCategory()
-    // {
-    //     $conn = $this->getEntityManager()->getConnection();
+    public function findAllNotProgrammed(int $session_id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
-    //     $sql = '
-    //         SELECT DISTINCT c.title   
-    //         FROM category c
-    //         INNER JOIN module m
-    //         ON m.category_id = c.id;
-    //     ';
-    //     $stmt = $conn->prepare($sql);
-    //     $result = $stmt->executeQuery();
+        $sql = 
+        'SELECT *
+        FROM module m
+        WHERE m.id NOT IN (
+            SELECT module_id
+            FROM program
+            WHERE session_id = :session_id)';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['session_id' => $session_id]);
 
-    //     return $result->fetchAssociative();
-            
-    // }
+        return $resultSet->fetchAllAssociative();
+    }
+
+    // $conn = $this->getEntityManager()->getConnection();
+
+        // $sql = 
+        //     'SELECT * 
+        //     FROM intern i
+        //     INNER JOIN intern_session s 
+        //     ON i.id = s.intern_id
+        //     WHERE s.intern_id NOT IN (
+        //         SELECT s.intern_id
+        //         FROM intern_session s
+        //         WHERE session_id = :session_id)';
+        // $stmt = $conn->prepare($sql);
+        // $resultSet = $stmt->executeQuery(['session_id' => $session_id]);
+        
+        // return $resultSet->fetchAllAssociative();
 
 //    /**
 //     * @return Module[] Returns an array of Module objects

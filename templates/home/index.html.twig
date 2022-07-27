@@ -3,5 +3,106 @@
 {% block title %}Accueil - Formation{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
+<h1>Accueil</h1>
+<section id="home-sessions" class="py-5">
+
+    <h3>Sessions en cours</h3>
+    <table class="table table-hover mb-5 table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Statut</th>
+            <th scope="col">Formation</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Inscrits</th>
+            <th scope="col">Modifier</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in currentSessions %}  
+
+          <tr class="table-active">
+            <td class="status">
+                {{ item.sessionStatus | raw}}
+            </td>
+            <td>{{ item.formation.title }}</td>
+            <td>{{ item.datestart | date("d/m/Y") }}</td>
+            <td>{{ item.dateend | date("d/m/Y") }}</td>
+            <td>{{ item.reservedPlacesNumber }} / {{ item.placenumber }}</td>
+            <td>
+                <a href="{{ path('session_detail', {'id': item.id}) }}">
+                    <i class="fa-solid fa-pen-to-square blue-hover"></i>
+                </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    <h3>Sessions à venir</h3>
+    <table class="table table-hover table-bordered table-striped  mb-5">
+        <thead>
+          <tr>
+            <th scope="col">Statut</th>
+            <th scope="col">Formation</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Inscrits</th>
+            <th scope="col">Modifier</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in nextSessions %}  
+
+          <tr class="table-active">
+            <td class="status">
+                {{ item.sessionStatus | raw}}
+            </td>
+            <td>{{ item.formation.title }}</td>
+            <td>{{ item.datestart | date("d/m/Y") }}</td>
+            <td>{{ item.dateend | date("d/m/Y") }}</td>
+            <td>{{item.reservedPlacesNumber}} / {{item.placenumber}}</td>
+            <td>
+                <a href="{{ path('session_detail', {'id': item.id}) }}">
+                    <i class="fa-solid fa-pen-to-square blue-hover"></i>
+                </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>Sessions passées</h3>
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Statut</th>
+            <th scope="col">Formation</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Inscrits</th>
+            <th scope="col">Modifier</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in pastSessions %}  
+
+          <tr class="table-active">
+            <td class="status">
+                {{ item.sessionStatus | raw}}
+            </td>
+            <td>{{ item.formation.title }}</td>
+            <td>{{ item.datestart | date("d/m/Y") }}</td>
+            <td>{{ item.dateend | date("d/m/Y") }}</td>
+            <td>{{item.reservedPlacesNumber}} / {{item.placenumber}}</td>
+            <td>
+                <a href="{{ path('session_detail', {'id': item.id}) }}">
+                    <i class="fa-solid fa-pen-to-square blue-hover"></i>
+                </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</section>
 {% endblock %}

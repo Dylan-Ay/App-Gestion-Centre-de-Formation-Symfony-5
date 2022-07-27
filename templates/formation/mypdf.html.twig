@@ -1,0 +1,21 @@
+{% extends 'base-pdf.html.twig' %}
+
+{% block title %}Programme de la formation{% endblock %}
+    
+{% block body %}
+    <h1>Programme de la formation {{ formation.title}}</h1>
+
+    <p>
+        {{formation.description}}
+    </p>
+
+    <h3>Dates des prochaines sessions :</h3>
+
+    <ul>
+        {% for session in formation.sessions %}
+            <li>
+                {{session.datestart| format_datetime('full', 'none', locale='fr') }} au {{session.dateend| format_datetime('full', 'none', locale='fr') }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
