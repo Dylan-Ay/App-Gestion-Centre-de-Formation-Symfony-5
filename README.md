@@ -1,6 +1,6 @@
 # Backend Project - School management app (Still in progress)
 
-![Design preview for the Tip calculator app coding challenge](public/images/preview_website.jpg)
+![Design preview for the Tip calculator app coding challenge](public/images/preview_websitee.jpg)
 
 ## Welcome! 👋
 
