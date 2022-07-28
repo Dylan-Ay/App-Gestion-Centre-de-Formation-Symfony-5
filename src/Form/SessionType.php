@@ -31,5 +31,4 @@ class SessionType extends AbstractType
             'data_class' => Session::class,
         ]);
     }
-
 }

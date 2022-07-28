@@ -5,6 +5,9 @@
 {% block body %}
 <h1>Accueil</h1>
 <section id="home-sessions" class="py-5">
+    {% if app.user %}
+      <h2 class="mb-5">Bienvenue {{app.user.firstname}} !</h2>
+    {% endif %}
 
     <h3>Sessions en cours</h3>
     <table class="table table-hover mb-5 table-bordered table-striped">
@@ -31,7 +34,7 @@
             <td>{{ item.reservedPlacesNumber }} / {{ item.placenumber }}</td>
             <td>
                 <a href="{{ path('session_detail', {'id': item.id}) }}">
-                    <i class="fa-solid fa-pen-to-square blue-hover"></i>
+                  <i class="fa-solid fa-pen-to-square blue-hover"></i>
                 </a>
             </td>
           </tr>

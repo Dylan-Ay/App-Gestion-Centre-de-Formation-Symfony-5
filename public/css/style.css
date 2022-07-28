@@ -159,7 +159,7 @@ header .navbar-nav {
   border-top-left-radius: 10px;
 }
 
-#add-intern form, #edit-module form, #edit-category form, #edit-session form {
+#add-intern form, #edit-module form, #edit-category form, #edit-session form, #edit-profil form {
   display: flex;
   margin: auto;
   flex-direction: column;
@@ -170,14 +170,14 @@ header .navbar-nav {
   border-radius: 15px;
   padding: 50px;
 }
-#add-intern form select, #edit-module form select, #edit-category form select, #edit-session form select {
+#add-intern form select, #edit-module form select, #edit-category form select, #edit-session form select, #edit-profil form select {
   max-width: 100%;
 }
-#add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option {
+#add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option, #edit-profil form option {
   padding: 15px 0;
 }
 @media screen and (max-width: 992.5px) {
-  #add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option {
+  #add-intern form option, #edit-module form option, #edit-category form option, #edit-session form option, #edit-profil form option {
     overflow: auto;
   }
 }
@@ -221,4 +221,29 @@ header .navbar-nav {
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 2px;
+}
+
+#detail-user ul {
+  line-height: 30px;
+}
+#detail-user .session-record {
+  width: 700px;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+#detail-user .session-record ul {
+  padding: 30px;
+}
+#detail-user .session-record h3 {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid black;
+  background-color: #e74c3c;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+#edit-profil .btn-action {
+  width: 225px;
 }/*# sourceMappingURL=style.css.map */

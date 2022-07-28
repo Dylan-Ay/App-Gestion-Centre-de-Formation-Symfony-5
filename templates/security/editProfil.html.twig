@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{app.user.firstname}} {{app.user.lastname }}{% endblock %}
+
+{% block body %}
+
+<h1>Modifier mon profil</h1>
+{% for message in app.flashes('notice') %}
+    <div class="alert-warning text-center mt-3 py-2">
+        {{ message }}
+        <i class="fa-solid fa-thumbs-up"></i>
+    </div>
+{% endfor %}
+<section id="edit-profil" class="py-5" >
+    
+    {{ form_start(form, {'attr' : {'class' : 'd-flex flex-column gap-3'}} ) }}
+    <h4>Mes informations : </h4>
+
+        {{ form_row(form.email, {'label': 'Adresse mail :', 'attr' : {'class' : 'form-control' }} ) }}
+
+        {{ form_row(form.firstname, {'label': 'Prénom :', 'attr' : {'class' : 'form-control' }} ) }}
+        {{ form_row(form.lastname, {'label': 'Nom :', 'attr' : {'class' : 'form-control' }} ) }}
+
+        {#  Afficher uniquement firstname lastname email #}
+            {{ form_row(form.password) }}
+            {{ form_row(form.confirm_password) }}
+        
+
+        <input class="btn btn-success btn-action mt-3 m-auto" type="submit" value="Enregistrer les modifications">
+    {{ form_end(form)}}
+
+    <div class="d-flex justify-content-center mt-5">
+        <a href="{{path('app_profil') }}" class="btn btn-primary btn-action ">Revenir à mon profil</a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{app.user.firstname}} {{app.user.lastname }}{% endblock %}
+
+{% block body %}
+
+<h1>Bienvenue sur votre profil {{app.user.firstname}}</h1>
+
+<section id="detail-user" class="py-5" >
+
+    {% for message in app.flashes('notice') %}
+        <div class="alert-warning text-center mb-3 py-2">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
+
+    <article class="session-record m-auto mb-5">
+        
+        <h3>Mes informations : </h3>
+        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+            <li>
+                <span class="fw-bold pe-2">Adresse email :</span> {{app.user.email}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-2">Prénom:</span> {{app.user.firstname}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-2">Nom :</span> {{app.user.lastname}}
+            </li>
+
+            <li>
+                <span class="fw-bold pe-2">Role :
+            </li>
+
+            <li>
+                <span class="fw-bold pe-2">Mot de passe : **********</span>
+            </li>
+        </ul>
+
+        <div class="btn-actions-container d-flex justify-content-evenly py-4">
+            <a href="{{ path('edit_profil', {'id': app.user.id}) }}" class="btn btn-primary btn-action">Modifier mon profil</a>
+            <a href="{{ path('edit_password', {'id': app.user.id}) }}" class="btn btn-dark btn-action ">Modifier mon mot de passe</a>
+        </div>
+
+        </article>
+</section>
+
+{% endblock %}
