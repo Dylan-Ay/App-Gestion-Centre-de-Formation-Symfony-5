@@ -19,40 +19,46 @@ use App\Form\ProgramType;
 
 class SessionController extends AbstractController
 {
-    // Affiche le detail d'une session
+    // <-------- Affiche le detail d'une session -------->
+
     /**
      * @Route("/session/detailSession/{id}", name="session_detail")
      */
-    public function sessionDetail(Session $session, ManagerRegistry $doctrine, SessionRepository $sessionRepository, Request $request, Program $program, Module $module): Response
+    public function sessionDetail(Session $session, ManagerRegistry $doctrine, SessionRepository $sessionRepository, Request $request): Response
     {
         $programsList = $doctrine->getRepository(Program::class)->findBy([
             'session' => $session->getId()
         ]);
 
+        // Affiche les stagiaires non inscrits à la session
         $internsNotInSession = $sessionRepository->findAllNotSubscribed($session->getId());
 
-        // $modulesNotProgrammed = $moduleRepository->findAllNotProgrammed($session->getId());
+        $formProgram = $this->createForm(ProgramType::class);
 
-        // Form modification du programme de la session
-        $formProgram = $this->createForm(ProgramType::class, $program);
-
-        $formProgram->get('session')->setData($session); // Défini la session en cours par défaut
+        // Défini la session en cours par défaut
+        $formProgram->get('session')->setData($session); 
         
-        $formProgram->handleRequest($request); 
+        // On récupère les informations du form
+        $formProgram->handleRequest($request);
 
 
         if ($formProgram->isSubmitted() && $formProgram->isValid()){
+
             
             $program = $formProgram->getData();
+
             $programManager = $doctrine->getManager();
             
-            $session->addProgram($program);
-            $programManager->persist($session);
+            // Récupère l'intitulé du module ajouté
+            $addedModule = $program->getModule()->getTitle();
+
+            $programManager->persist($program);
+
             $programManager->flush();
 
             $this->addFlash(
                 'notice',
-                "Le programme a bien été mis à jour"
+                "Le programme $addedModule a bien été mis à jour"
             );
 
             return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
@@ -63,11 +69,12 @@ class SessionController extends AbstractController
             'programsList' => $programsList, // Renvoi le programme selon l'ID de la session
             'internsNotInSession' => $internsNotInSession,
             'formProgram' => $formProgram->createView() // Renvoi un tableau de stagiaires non inscrits,
-            // 'modulesNotProgrammed' => $modulesNotProgrammed // Renvoi un tableau de modules non programmés
         ]);
     }
 
-    // Ajouter/ Modifier les informations d'une session
+
+    // <-------- Ajouter/ Modifier les informations d'une session -------->
+
     /**
      * @Route("/session/edit/{id}", name= "edit_session")
      */
@@ -103,26 +110,6 @@ class SessionController extends AbstractController
             $program = new Program();
         }
 
-        // // Form modification du programme de la session
-        // $formProgram = $this->createForm(ProgramType::class, $program);
-        // $formProgram->handleRequest($request); 
-
-        // if ($formProgram->isSubmitted() && $formProgram->isValid()){
-            
-        //     $program = $formProgram->getData();
-
-        //     $programManager = $doctrine->getManager();
-        //     $programManager->persist($program);
-        //     $programManager->flush();
-
-        //     $this->addFlash(
-        //         'notice',
-        //         "Le programme a bien été mis à jour"
-        //     );
-
-        //     return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
-        // }
-
         // View pour afficher le formulaire d'ajout
         return $this->render('session/editSession.html.twig', [
             'form' => $form->createView(), // Génère le formulaire visuellement
@@ -131,7 +118,8 @@ class SessionController extends AbstractController
         ]);
     }
 
-    // Désinscrire un stagiaire d'une session
+
+    // <-------- Désinscrire un stagiaire d'une session -------->
 
     /**
      * @Route("/session/désinscrire/{idSe}/{idIn}", name = "unsubscribe_intern")
@@ -156,7 +144,8 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
     }
 
-    // Inscrire un stagiaire à une session
+
+    // <-------- Inscrire un stagiaire à une session -------->
 
     /**
      * @Route("/session/inscrire/{idSe}/{idIn}", name = "subscribe_intern")
@@ -181,7 +170,8 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
     }
 
-    // Suppression d'un module du programme
+
+    // <-------- Suppression d'un module du programme -------->
 
     /**
      * @Route("session/supression-module/{idSe}/{idPro}/{idMo}", name="delete_program_module")
@@ -207,31 +197,4 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
 
     }
-
-    // // Ajout d'un module au programme
-
-    // /**
-    //  * @Route("session/ajout-module/{idSe}/{idPro}/{idMo}", name="add_program_module")
-    //  * @ParamConverter("session", options={"mapping": {"idSe": "id"}})
-    //  * @ParamConverter("program", options={"mapping": {"idPro": "id"}})
-    //  * @ParamConverter("module", options={"mapping": {"idMo": "id"}})
-    //  */
-    // public function addProgramModule(ManagerRegistry $doctrine, Session $session, Program $program, Module $module) : Response
-    // {
-    //     $entityManager = $doctrine->getManager();
-
-    //     $addedModule = $program->getModule()->getTitle();
-
-    //     $session->addProgram($program);
-    //     $entityManager->persist($session);
-    //     $entityManager->flush();
-
-    //     $this->addFlash(
-    //         'notice',
-    //         "Le module $addedModule a bien été supprimé"
-    //     );
-
-    //     return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
-
-    // }
 }

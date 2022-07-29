@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    // <-------- Affiche les différents tableaux de sessions dans la page d'accueil -------->
+
     /**
      * @Route("/home", name="app_home")
      */

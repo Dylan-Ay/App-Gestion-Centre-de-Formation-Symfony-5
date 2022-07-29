@@ -13,17 +13,19 @@ use App\Entity\Program;
 use App\Entity\Session;
 use App\Form\CategoryType;
 use App\Form\ModuleType;
+use App\Repository\SessionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
 class FormationController extends AbstractController
 {
-    // Affiche la liste des formations avec leurs sessions
+    // <-------- Affiche la liste des formations avec leurs sessions dans la page "formations"  -------->
+
     /**
      * @Route("/formations", name="app_formation")
      */
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine, SessionRepository $session): Response
     {
         $formations = $doctrine->getRepository(Formation::class)->findAll();
 
@@ -35,7 +37,8 @@ class FormationController extends AbstractController
         ]);
     }
     
-    //Affiche la liste des modules
+
+    // <-------- Affiche la liste des modules dans la page "gestion des modules" -------->
 
     /**
      * @Route("/modules", name="app_modules")
@@ -49,7 +52,8 @@ class FormationController extends AbstractController
         ]);
     }
 
-    // Ajoute et modifie un module
+
+    // <-------- Ajoute ou modifie un module dans la page "gestion des modules" -------->
 
     /**
      * @Route("/module/add", name="add_module")
@@ -90,6 +94,9 @@ class FormationController extends AbstractController
         ]);
     }
 
+
+    // <-------- Supprime un module dans la page "gestion des modules" -------->
+
     /**
      * @Route("/module/delete/{id}", name="module_delete")
      */
@@ -110,7 +117,8 @@ class FormationController extends AbstractController
         return $this->redirectToRoute('app_modules');
     }
 
-    // Affiche la liste des catégories
+    // <-------- Affiche la liste des catégories dans la page "gestion des catégories" -------->
+
     /**
      * @Route("/catégories", name= "app_categories")
      */
@@ -123,7 +131,8 @@ class FormationController extends AbstractController
         ]);
     }
 
-    // Ajoute une catégorie
+    // <-------- Ajoute ou modifie une catégorie dans la page "gestion des catégories" -------->
+
     /**
      * @Route("/categorie/add", name= "add_category")
      * @Route("/categorie/{id}/edit", name= "edit_category")
@@ -163,7 +172,8 @@ class FormationController extends AbstractController
         ]);
     }
 
-    // Supprimer une catégorie
+
+    // <-------- Supprime une catégorie dans la page "gestion des catégories" -------->
 
     /**
      * @Route("/categorie/{id}/delete", name="delete_category")
@@ -185,11 +195,13 @@ class FormationController extends AbstractController
         return $this->redirectToRoute('app_categories');
     }
 
+    
+    // <-------- Permet de générer un PDF avec le programme de la formation -------->
+
     /**
      * @Route("/formation/programme/{id}", name="programme-formation")
      */
-    
-     public function formationProgram(ManagerRegistry $doctrine, Formation $formation)
+     public function formationProgram(Formation $formation)
      {
         // On définit les options du PDF
         $pdfOptions = new Options();

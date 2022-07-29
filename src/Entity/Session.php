@@ -193,9 +193,6 @@ class Session
         if ($this->leftPlacesNumber() === 0) {
             return $this->status = "<div class='alert-danger'>Session complète</div>";
         }
-        // else{
-        //     return $this->status = "test";
-        // }
     }
 
     // TO STRING

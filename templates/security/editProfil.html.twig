@@ -21,11 +21,6 @@
         {{ form_row(form.firstname, {'label': 'Prénom :', 'attr' : {'class' : 'form-control' }} ) }}
         {{ form_row(form.lastname, {'label': 'Nom :', 'attr' : {'class' : 'form-control' }} ) }}
 
-        {#  Afficher uniquement firstname lastname email #}
-            {{ form_row(form.password) }}
-            {{ form_row(form.confirm_password) }}
-        
-
         <input class="btn btn-success btn-action mt-3 m-auto" type="submit" value="Enregistrer les modifications">
     {{ form_end(form)}}
 

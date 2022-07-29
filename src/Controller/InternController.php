@@ -13,7 +13,7 @@ use App\Form\InternType;
 
 class InternController extends AbstractController
 {
-    // Affiche la liste des stagiaires
+    // <-------- Affiche la liste des stagiaires -------->
 
     /**
      * @Route ("/stagiaires", name= "app_interns")
@@ -27,7 +27,8 @@ class InternController extends AbstractController
         ]);
     }
 
-    // Ajoute et modifie les informations d'un stagiaire
+
+    // <-------- Ajout ou modifie les informations d'un stagiaire -------->
     
     /**
      * @Route("/stagiaire/add", name ="add_intern")
@@ -72,7 +73,8 @@ class InternController extends AbstractController
         ]);
     }
 
-    // Effectue la suppression d'un stagiaire
+
+    // <-------- Supprime un stagiaire -------->
 
     /**
      * @Route("stagiaire/{id}/delete", name="delete_intern")
@@ -94,7 +96,7 @@ class InternController extends AbstractController
         return $this->redirectToRoute('app_interns');
     }
     
-    // Affiche le detail d'un stagiaire
+    // <-------- Affiche le detail d'un stagiaire -------->
     
     /**
      * @Route ("stagiaire/{id}", name= "intern_detail")

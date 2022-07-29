@@ -21,9 +21,9 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item ">
                     <div class="fw-bold text-center pb-3">Les prochaines sessions :</div>
-
+                    
                     {% for session in formation.sessions  %}
-                        
+
                     <a href="{{ path('session_detail', {'id': session.id}) }}">
                         <div class="date-container bg-success mb-4 btn-return">
                             <div class="mb-2">

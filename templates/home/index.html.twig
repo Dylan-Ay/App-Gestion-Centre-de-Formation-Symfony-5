@@ -28,7 +28,11 @@
             <td class="status">
                 {{ item.sessionStatus | raw}}
             </td>
-            <td>{{ item.formation.title }}</td>
+            <td class="formation-cell">
+              <a href="{{ path('session_detail', {'id': item.id}) }}" class="blue-hover">
+                {{ item.formation.title }}
+              </a>
+            </td>
             <td>{{ item.datestart | date("d/m/Y") }}</td>
             <td>{{ item.dateend | date("d/m/Y") }}</td>
             <td>{{ item.reservedPlacesNumber }} / {{ item.placenumber }}</td>
@@ -61,7 +65,11 @@
             <td class="status">
                 {{ item.sessionStatus | raw}}
             </td>
-            <td>{{ item.formation.title }}</td>
+            <td class="formation-cell">
+              <a href="{{ path('session_detail', {'id': item.id}) }}" class="blue-hover">
+                {{ item.formation.title }}
+              </a>
+            </td>
             <td>{{ item.datestart | date("d/m/Y") }}</td>
             <td>{{ item.dateend | date("d/m/Y") }}</td>
             <td>{{item.reservedPlacesNumber}} / {{item.placenumber}}</td>
@@ -94,7 +102,11 @@
             <td class="status">
                 {{ item.sessionStatus | raw}}
             </td>
-            <td>{{ item.formation.title }}</td>
+            <td class="formation-cell">
+              <a href="{{ path('session_detail', {'id': item.id}) }}" class="blue-hover">
+                {{ item.formation.title }}
+              </a>
+            </td>
             <td>{{ item.datestart | date("d/m/Y") }}</td>
             <td>{{ item.dateend | date("d/m/Y") }}</td>
             <td>{{item.reservedPlacesNumber}} / {{item.placenumber}}</td>

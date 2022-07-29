@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\PswdType;
+use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Svg\Tag\Rect;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -39,7 +43,9 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    
+
+    // <-------- Modifie le profil d'un user  -------->
+
     /**
      * @Route("security/editProfil/{id}", name="edit_profil")
      */
@@ -70,20 +76,28 @@ class SecurityController extends AbstractController
         ]);
     }
     
+
+    // <-------- Modifie le password d'un user -------->
+
     /**
      * @Route("security/editPassword/{id}", name="edit_password")
      */
-    public function editPassword(ManagerRegistry $doctrine, Request $request, User $user = null) : Response
+    public function editPassword(EntityManagerInterface $entityManager, Request $request, User $user = null, UserPasswordHasherInterface $userPasswordHasher) : Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        
+        $form = $this->createForm(PswdType::class);
 
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
             
-            $user = $form->getData(); //Permet d'hydrater l'objet employe
-            
-            $entityManager = $doctrine->getManager(); // Récupère le ManagerRegistry
             $entityManager->persist($user); // Prépare les données
             $entityManager->flush();    // Execute la request
             
@@ -98,6 +112,9 @@ class SecurityController extends AbstractController
         ]);
 
     }
+
+
+    // <-------- Affiche le profil d'un user -------->
 
     /**
      * @Route("/security/profil", name="app_profil")

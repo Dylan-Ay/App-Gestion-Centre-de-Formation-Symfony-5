@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse email.")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -113,6 +113,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getRoleName(): string
+    {
+        if ($this->getRoles() === 'ROLE_USER') {
+            return "Utilisateur";
+        }else{
+            return "Administrateur";
+        }
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -183,4 +192,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
 }

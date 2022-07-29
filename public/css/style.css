@@ -106,10 +106,14 @@ header .navbar-nav {
 }
 
 .alert-warning {
-  width: 430px;
+  width: 500px;
   border-radius: 10px;
   margin: auto;
   background-color: #fde1b6;
+}
+
+.p-30 {
+  padding: 30px;
 }
 
 /* Categories */
@@ -188,7 +192,7 @@ header .navbar-nav {
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
-#detail-session .session-record ul, #detail-session .session-record form {
+#detail-session .session-record form {
   padding: 30px;
 }
 #detail-session .session-record h3 {
@@ -215,12 +219,18 @@ header .navbar-nav {
   margin: auto;
 }
 
+#home-sessions .status {
+  width: 195.78px;
+}
 #home-sessions .status div {
   border-radius: 6px;
   color: white;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 2px;
+}
+#home-sessions .formation-cell {
+  width: 588.55px;
 }
 
 #detail-user ul {
