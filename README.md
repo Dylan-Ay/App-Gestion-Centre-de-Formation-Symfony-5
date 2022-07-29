@@ -14,6 +14,8 @@ The functionalities are :
 - Having a management page to manage interns, courses, training and the categories of the courses
 - Having a detail page for an intern and a training session
 - Adding, Deleting, Updating datas
+- User connexion with personal profil
+- Admin role to provide more rights
 
 Stacks used :
 - PHP
