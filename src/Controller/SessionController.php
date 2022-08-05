@@ -19,7 +19,7 @@ use App\Form\ProgramType;
 
 class SessionController extends AbstractController
 {
-    // <-------- Affiche le detail d'une session -------->
+    // <-------- Affiche le detail d'une session et permet d'ajouté un module -------->
 
     /**
      * @Route("/session/detailSession/{id}", name="session_detail")
@@ -44,7 +44,6 @@ class SessionController extends AbstractController
 
         if ($formProgram->isSubmitted() && $formProgram->isValid()){
 
-            
             $program = $formProgram->getData();
 
             $programManager = $doctrine->getManager();

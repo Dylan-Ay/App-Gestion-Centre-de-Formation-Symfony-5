@@ -42,22 +42,6 @@ class SessionRepository extends ServiceEntityRepository
     // Récupère les stagiaires qui ne sont pas inscrit dans la session
     public function findAllNotSubscribed(int $session_id)
     {
-        // $conn = $this->getEntityManager()->getConnection();
-
-        // $sql = 
-        //     'SELECT * 
-        //     FROM intern i
-        //     INNER JOIN intern_session s 
-        //     ON i.id = s.intern_id
-        //     WHERE s.intern_id NOT IN (
-        //         SELECT s.intern_id
-        //         FROM intern_session s
-        //         WHERE session_id = :session_id)';
-        // $stmt = $conn->prepare($sql);
-        // $resultSet = $stmt->executeQuery(['session_id' => $session_id]);
-        
-        // return $resultSet->fetchAllAssociative();
-
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
