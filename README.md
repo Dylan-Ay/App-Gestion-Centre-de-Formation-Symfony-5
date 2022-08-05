@@ -1,6 +1,6 @@
 # Backend Project - School management app (Still in progress)
 
-![Design preview for the Tip calculator app coding challenge](public/images/preview_websitee.jpg)
+![Design preview for the Tip calculator app coding challenge](public/images/preview_website.jpg)
 
 ## Welcome! 👋
 
@@ -14,6 +14,8 @@ The functionalities are :
 - Having a management page to manage interns, courses, training and the categories of the courses
 - Having a detail page for an intern and a training session
 - Adding, Deleting, Updating datas
+- User connexion with personal profil
+- Admin role to provide more rights
 
 Stacks used :
 - PHP
