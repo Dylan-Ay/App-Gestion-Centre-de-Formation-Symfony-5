@@ -6,12 +6,20 @@
 
 <section id="detail-session" class="py-5" >
 
-    {% for message in app.flashes('notice') %}
+    {% for message in app.flashes('notice-error') %}
+        <div class="alert-warning text-center mb-3 py-2">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-down"></i>
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('notice-success') %}
         <div class="alert-warning text-center mb-3 py-2">
             {{ message }}
             <i class="fa-solid fa-thumbs-up"></i>
         </div>
     {% endfor %}
+
 
     <article class="session-record m-auto mb-5">
         <h3 class="text-center m-0">

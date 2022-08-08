@@ -9,44 +9,54 @@
       <h2 class="mb-5">Bienvenue {{app.user.firstname}} !</h2>
     {% endif %}
 
+    {# <-------- SESSION EN COURS --------> #}
+
+    
     <h3>Sessions en cours</h3>
-    <table class="table table-hover mb-5 table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Statut</th>
-            <th scope="col">Formation</th>
-            <th scope="col">Date de début</th>
-            <th scope="col">Date de fin</th>
-            <th scope="col">Inscrits</th>
-            <th scope="col">Modifier</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for item in currentSessions %}  
+    {% if currentSessions | length > 0 %}
+      <table class="table table-hover mb-5 table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Statut</th>
+              <th scope="col">Formation</th>
+              <th scope="col">Date de début</th>
+              <th scope="col">Date de fin</th>
+              <th scope="col">Inscrits</th>
+              <th scope="col">Modifier</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for item in currentSessions %}  
 
-          <tr class="table-active">
-            <td class="status">
-                {{ item.sessionStatus | raw}}
-            </td>
-            <td class="formation-cell">
-              <a href="{{ path('session_detail', {'id': item.id}) }}" class="blue-hover">
-                {{ item.formation.title }}
-              </a>
-            </td>
-            <td>{{ item.datestart | date("d/m/Y") }}</td>
-            <td>{{ item.dateend | date("d/m/Y") }}</td>
-            <td>{{ item.reservedPlacesNumber }} / {{ item.placenumber }}</td>
-            <td>
-                <a href="{{ path('session_detail', {'id': item.id}) }}">
-                  <i class="fa-solid fa-pen-to-square blue-hover"></i>
+            <tr class="table-active">
+              <td class="status">
+                  {{ item.sessionStatus | raw}}
+              </td>
+              <td class="formation-cell">
+                <a href="{{ path('session_detail', {'id': item.id}) }}" class="blue-hover">
+                  {{ item.formation.title }}
                 </a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              </td>
+              <td>{{ item.datestart | date("d/m/Y") }}</td>
+              <td>{{ item.dateend | date("d/m/Y") }}</td>
+              <td>{{ item.reservedPlacesNumber }} / {{ item.placenumber }}</td>
+              <td>
+                  <a href="{{ path('session_detail', {'id': item.id}) }}">
+                    <i class="fa-solid fa-pen-to-square blue-hover"></i>
+                  </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Aucune session n'est actuellement en cours.</p>
+      {% endif %}
 
-    <h3>Sessions à venir</h3>
+      {# <-------- SESSION A VENIR --------> #}
+
+      <h3>Sessions à venir</h3>
+      {% if nextSessions | length > 0 %}
     <table class="table table-hover table-bordered table-striped  mb-5">
         <thead>
           <tr>
@@ -82,7 +92,13 @@
           {% endfor %}
         </tbody>
       </table>
+      {% else %}
+        <p>Aucune session n'est actuellement à venir.</p>
+      {% endif %}
 
+      {# <-------- SESSION PASSEES --------> #}
+
+      {% if pastSessions | length > 0 %}
       <h3>Sessions passées</h3>
     <table class="table table-hover table-bordered table-striped">
         <thead>
@@ -119,5 +135,9 @@
           {% endfor %}
         </tbody>
       </table>
+      {% else %}
+        <p>Aucune session ne s'est encore terminée.</p>
+      {% endif %}
+      
 </section>
 {% endblock %}

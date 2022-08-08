@@ -136,7 +136,7 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash(
-            'notice',
+            'notice-success',
             "Le stagiaire $unsubscribedIntern a bien été désinscrit"
         );
 
@@ -153,18 +153,26 @@ class SessionController extends AbstractController
      */
     public function subscribeIntern(ManagerRegistry $doctrine, Session $session, Intern $intern) : Response
     {
-        $entityManager = $doctrine->getManager();
-
-        $subscribedIntern = $intern->getFullName();
-
-        $session->addIntern($intern);
-        $entityManager->persist($session);
-        $entityManager->flush();
-
-        $this->addFlash(
-            'notice',
-            "Le stagiaire $subscribedIntern a bien été inscrit"
-        );
+        if ($session->leftPlacesNumber() === 0) {
+            $this->addFlash(
+                'notice-error',
+                "Il n'y a plus de place disponible pour cette session"
+            );
+            
+        }else{
+            $entityManager = $doctrine->getManager();
+    
+            $subscribedIntern = $intern->getFullName();
+    
+            $session->addIntern($intern);
+            $entityManager->persist($session);
+            $entityManager->flush();
+    
+            $this->addFlash(
+                'notice-success',
+                "Le stagiaire $subscribedIntern a bien été inscrit"
+            );
+        }
 
         return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
     }

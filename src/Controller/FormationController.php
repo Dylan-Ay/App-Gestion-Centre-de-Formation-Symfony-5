@@ -28,8 +28,9 @@ class FormationController extends AbstractController
     public function index(ManagerRegistry $doctrine, SessionRepository $session): Response
     {
         $formations = $doctrine->getRepository(Formation::class)->findAll();
-
-        $session = $doctrine->getRepository(Session::class)->findAll();
+        
+        // $formation->getId() message d'erreur
+        $session = $session->findNextSessionsOfFormation(2);
 
         return $this->render('formation/formationsList.html.twig', [
             'formations' => $formations,
