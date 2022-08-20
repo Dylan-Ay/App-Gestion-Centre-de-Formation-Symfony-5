@@ -113,15 +113,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRoleName(): string
-    {
-        if ($this->getRoles() === 'ROLE_USER') {
-            return "Utilisateur";
-        }else{
-            return "Administrateur";
-        }
-    }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */

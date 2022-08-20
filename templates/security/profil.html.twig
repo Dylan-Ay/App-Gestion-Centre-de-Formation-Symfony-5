@@ -32,7 +32,7 @@
             </li>
 
             <li>
-                <span class="fw-bold pe-2">Role :</span> {{app.user.rolename}}
+                <span class="fw-bold pe-2">Role :</span> {% if is_granted('ROLE_ADMIN') %} Administrateur {% else %} Utilisateur{% endif %}
             </li>
 
             <li>
