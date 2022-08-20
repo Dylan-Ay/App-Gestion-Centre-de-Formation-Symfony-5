@@ -1,4 +1,4 @@
-# Backend Project - School management app (Still in progress)
+# Backend Project - School management app 
 
 ![Design preview for the Tip calculator app coding challenge](public/images/preview_website.jpg)
 
