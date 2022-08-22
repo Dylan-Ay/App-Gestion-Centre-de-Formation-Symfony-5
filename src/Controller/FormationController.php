@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Formation;
 use App\Entity\Module;
-use App\Entity\Program;
-use App\Entity\Session;
 use App\Form\CategoryType;
 use App\Form\ModuleType;
-use App\Repository\SessionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -25,16 +22,13 @@ class FormationController extends AbstractController
     /**
      * @Route("/formations", name="app_formation")
      */
-    public function index(ManagerRegistry $doctrine, SessionRepository $session): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
+            
         $formations = $doctrine->getRepository(Formation::class)->findAll();
-        
-        // $formation->getId() message d'erreur
-        $session = $session->findNextSessionsOfFormation(2);
 
         return $this->render('formation/formationsList.html.twig', [
             'formations' => $formations,
-            'session' => $session
         ]);
     }
     

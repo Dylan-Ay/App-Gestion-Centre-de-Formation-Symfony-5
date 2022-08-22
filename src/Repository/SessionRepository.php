@@ -75,22 +75,22 @@ class SessionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    // Affiche les prochaines sessions selon la formation
-    public function findNextSessionsOfFormation($id)
-    {
-        $entityManager = $this->getEntityManager();
+    // // Affiche les prochaines sessions selon la formation
+    // public function findNextSessionsOfFormation($id)
+    // {
+    //     $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
-            'SELECT s
-            FROM App\Entity\Session s
-            WHERE s.date_start > :today
-            AND s.formation = :formation_id'
-        )
-        ->setParameter('today', new \DateTime())
-        ->setParameter('formation_id', $id);
+    //     $query = $entityManager->createQuery(
+    //         'SELECT s
+    //         FROM App\Entity\Session s
+    //         WHERE s.date_start > :today
+    //         AND s.formation = :formation_id'
+    //     )
+    //     ->setParameter('today', new \DateTime())
+    //     ->setParameter('formation_id', $id);
         
-        return $query->getResult();
-    }
+    //     return $query->getResult();
+    // }
 
     // Affiche les Sessions en cours
     public function findCurrentSessions()
