@@ -21,6 +21,9 @@
 
         {{ form_row(registrationForm.agreeTerms) }}
 
+        {{ form_row(registrationForm.recaptcha)}}
+        {{ form_errors(registrationForm.recaptcha)}}
+
         <button type="submit" class="btn btn-primary btn-action d-block m-auto">S'inscrire</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
