@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+
+<section id="inbox">
+
+    {% for message in app.flashes('message') %}
+        <div class="alert-warning text-center mb-3 py-2">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
+
+    <h2>Message de {{message.title}}</h2>
+    <p>Expéditeur : {{message.sender.email}}</p>
+    <p>Reçu le : {{message.createdat | format_datetime ("full", 'short', locale='fr') }}</p> 
+    <p>Contenu du message : {{message.message}}</p>
+    
+    <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+        Menu
+    </a>
+
+    <a href="{{ path('app_inbox') }}" class="btn btn-dark">Retour à la boîte de réception</a>
+
+    {# Menu latéral de la messagerie #}
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            
+            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4">Nouveau message</a>
+            
+            <ul class="list-group">
+                <a href="{{ path('app_message') }}" class="list-group-item">
+                    Accueil
+                </a>
+           
+                <a href="{{ path('app_inbox') }}" class="list-group-item active">
+                    Boîte de réception
+                </a>
+            
+                <a href="{{ path('app_sent') }}" class="list-group-item">
+                    Eléments envoyés
+                </a>
+            </ul>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

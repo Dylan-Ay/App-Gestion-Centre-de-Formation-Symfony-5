@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Envoyer un message{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'class': 'd-flex flex-column gap-3'}} ) }}
+        
+        {{ form_row(form.recipient, {'label': 'Destinaire :', 'attr' : {'class' : 'form-control' }} )}}
+
+        {{ form_row(form.title, {'label': 'Objet :', 'attr' : {'class' : 'form-control' }} ) }}
+
+        {{ form_row(form.message, {'label': 'Contenu du message :', 'attr' : {'class' : 'form-control' }} ) }}
+
+
+        <button type="submit" class="btn btn-primary btn-action d-block m-auto">Envoyer le message</button>
+    {{ form_end(form) }}
+
+{% endblock %}
