@@ -20,7 +20,7 @@ class FormationController extends AbstractController
     // <-------- Affiche la liste des formations avec leurs sessions dans la page "formations"  -------->
 
     /**
-     * @Route("/formations", name="app_formation")
+     * @Route("/profile/formations", name="app_formation")
      */
     public function index(ManagerRegistry $doctrine): Response
     {
@@ -36,7 +36,7 @@ class FormationController extends AbstractController
     // <-------- Affiche la liste des modules dans la page "gestion des modules" -------->
 
     /**
-     * @Route("/modules", name="app_modules")
+     * @Route("/admin/modules", name="app_modules")
      */
     public function modulesList(ManagerRegistry $doctrine): Response
     {
@@ -115,7 +115,7 @@ class FormationController extends AbstractController
     // <-------- Affiche la liste des catégories dans la page "gestion des catégories" -------->
 
     /**
-     * @Route("/catégories", name= "app_categories")
+     * @Route("/admin/categories", name= "app_categories")
      */
     public function categoriesList(ManagerRegistry $doctrine) : Response
     {

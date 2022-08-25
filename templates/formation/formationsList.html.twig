@@ -6,9 +6,16 @@
 
 <h1 class="">Les Formations</h1>
 
-<section id="sessions-list" class="row justify-content-center py-5 gap-5">
+{% for message in app.flashes('notice') %}
+    <div class="alert-warning text-center mb-5">
+        {{ message }}
+        <i class="fa-solid fa-thumbs-up"></i>
+    </div>
+  {% endfor %} 
 
-    
+<a href="{{ path('add_session') }}" class="btn btn-warning btn-return d-block m-auto">Créer une nouvelle session</a>
+
+<section id="sessions-list" class="row justify-content-center py-5 gap-5">
 
     {% for formation in formations %}
 

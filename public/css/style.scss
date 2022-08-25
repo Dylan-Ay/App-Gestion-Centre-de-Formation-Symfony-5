@@ -124,6 +124,7 @@ header{
     border-radius: 10px;
     margin: auto;
     background-color: #fde1b6;
+    padding: 15px;
 }
 
 .p-30{
@@ -248,6 +249,9 @@ header{
         margin: unset;
         max-width: 600px;
     }
+    .borders input{
+        margin-bottom: 14px;
+    }
 }
 
 
@@ -326,3 +330,5 @@ header{
         width: 385px;
     }
 }
+
+

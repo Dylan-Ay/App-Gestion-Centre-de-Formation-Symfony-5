@@ -46,7 +46,8 @@ class Session
     private $interns;
 
     /**
-     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="session")
+     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="session", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"module" = "ASC"})
      */
     private $programs;
 

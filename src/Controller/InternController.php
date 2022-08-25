@@ -16,7 +16,7 @@ class InternController extends AbstractController
     // <-------- Affiche la liste des stagiaires -------->
 
     /**
-     * @Route ("/stagiaires", name= "app_interns")
+     * @Route ("/profile/interns", name= "app_interns")
      */
     public function index (ManagerRegistry $doctrine) : Response
     {

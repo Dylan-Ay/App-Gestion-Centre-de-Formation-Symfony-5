@@ -27,7 +27,7 @@
     {{ form_start(form) }}
 
     {% for message in app.flashes('notice') %}
-        <div class="text-center alert-warning py-1">
+        <div class="text-center alert-warning">
             {{ message }}
             <i class="ps-1 fa-solid fa-thumbs-up"></i>
         </div>

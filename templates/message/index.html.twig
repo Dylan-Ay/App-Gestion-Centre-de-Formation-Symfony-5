@@ -7,7 +7,7 @@
 <section id="messagerie">
 
     {% for message in app.flashes('message') %}
-        <div class="alert-warning text-center mb-3 py-2">
+        <div class="alert-warning text-center mb-3">
             {{ message }}
             <i class="fa-solid fa-thumbs-up"></i>
         </div>

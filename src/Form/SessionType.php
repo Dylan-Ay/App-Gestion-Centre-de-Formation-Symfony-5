@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Session;
+use App\Form\ProgramType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SessionType extends AbstractType
 {
@@ -21,8 +23,13 @@ class SessionType extends AbstractType
             ])
             ->add('place_number')
             ->add('formation')
-            // ->add('interns')
-        ;
+            ->add('programs', CollectionType::class, [
+                'entry_type' => ProgramType::class,
+                'prototype' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

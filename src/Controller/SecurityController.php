@@ -117,7 +117,7 @@ class SecurityController extends AbstractController
     // <-------- Affiche le profil d'un user -------->
 
     /**
-     * @Route("/security/profil", name="app_profil")
+     * @Route("/profile/security/personal-profile", name="app_profil")
      */
     public function showProfil(ManagerRegistry $doctrine): Response
     {

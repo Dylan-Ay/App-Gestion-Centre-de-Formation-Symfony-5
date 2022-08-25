@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     // <-------- Affiche les différents tableaux de sessions dans la page d'accueil -------->
 
     /**
-     * @Route("/home", name="app_home")
+     * @Route("/profile/home", name="app_home")
      */
     public function index(SessionRepository $session): Response
     {

@@ -14,8 +14,6 @@ use App\Form\SessionType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Repository\SessionRepository;
-use App\Repository\ModuleRepository;
-use App\Form\ProgramType;
 
 class SessionController extends AbstractController
 {
@@ -33,41 +31,10 @@ class SessionController extends AbstractController
         // Affiche les stagiaires non inscrits à la session
         $internsNotInSession = $sessionRepository->findAllNotSubscribed($session->getId());
 
-        $formProgram = $this->createForm(ProgramType::class);
-
-        // Défini la session en cours par défaut
-        $formProgram->get('session')->setData($session); 
-        
-        // On récupère les informations du form
-        $formProgram->handleRequest($request);
-
-
-        if ($formProgram->isSubmitted() && $formProgram->isValid()){
-
-            $program = $formProgram->getData();
-
-            $programManager = $doctrine->getManager();
-            
-            // Récupère l'intitulé du module ajouté
-            $addedModule = $program->getModule()->getTitle();
-
-            $programManager->persist($program);
-
-            $programManager->flush();
-
-            $this->addFlash(
-                'notice',
-                "Le programme $addedModule a bien été mis à jour"
-            );
-
-            return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
-        }
-
         return $this->render('session/detailSession.html.twig',[
             'session' => $session, // Renvoi l'objet session
             'programsList' => $programsList, // Renvoi le programme selon l'ID de la session
-            'internsNotInSession' => $internsNotInSession,
-            'formProgram' => $formProgram->createView() // Renvoi un tableau de stagiaires non inscrits,
+            'internsNotInSession' => $internsNotInSession
         ]);
     }
 
@@ -75,9 +42,10 @@ class SessionController extends AbstractController
     // <-------- Ajouter/ Modifier les informations d'une session -------->
 
     /**
+     * @Route("/session/add", name= "add_session")
      * @Route("/session/edit/{id}", name= "edit_session")
      */
-    public function editSession(ManagerRegistry $doctrine, Session $session = null, Request $request, Program $program) : Response
+    public function editSession(ManagerRegistry $doctrine, Session $session = null, Request $request) : Response
     {
         if (!$session){
             $session = new Session();
@@ -85,12 +53,12 @@ class SessionController extends AbstractController
 
         // Form modification de la session
         $form = $this->createForm(SessionType::class, $session);
-        
+
         $form->handleRequest($request); 
         
         // Vérifie que le formulaire a été soumit et que les champs sont valides (similiaire à filter_input)
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $session = $form->getData(); //Permet d'hydrater l'objet session
             
             $sessionManager = $doctrine->getManager(); // Récupère le manager
@@ -98,23 +66,45 @@ class SessionController extends AbstractController
             $sessionManager->flush(); // Execute la request (insert into)
 
             $this->addFlash(
-                'notice',
+                'notice-success',
                 "La session a bien été mise à jour"
             );
 
             return $this->redirectToRoute('session_detail', ['id' => $session->getId()]);
         }
 
-        if (!$program){
-            $program = new Program();
-        }
-
         // View pour afficher le formulaire d'ajout
         return $this->render('session/editSession.html.twig', [
             'form' => $form->createView(), // Génère le formulaire visuellement
             'edit' => $session->getId(),
-            // 'formProgram' => $formProgram->createView()
+            'sessionId' => $session->getId()
         ]);
+    }
+
+    // <-------- Ajouter/ Modifier les informations d'une session -------->
+
+    /**
+     * @Route("/session/delete/{id}", name="delete_session")
+     */
+    public function deleteSession(ManagerRegistry $doctrine, Session $session)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $sessionDeleted = $session->getFormation()->getTitle();
+
+        $date = $session->getDateStart();
+
+        $sessionDate = $date->format('d-m-Y');
+
+        $entityManager->remove($session);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            "La session $sessionDeleted du $sessionDate a bien été supprimée"
+        );
+
+        return $this->redirectToRoute('app_formation');
     }
 
 

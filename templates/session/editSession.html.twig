@@ -25,9 +25,8 @@
     
     {# Affiche le formulaire récupéré depuis le SessionType #}
     {{ form_start(form) }}
-    <h5 class="text-center">Modifier les informations de la session</h5>
 
-    {{ form_row(form.formation, {'label': 'Formation :', 'attr' : {'class' : 'form-control' }} ) }}
+    {{ form_row(form.formation, {'label': 'Intitulé de la formation :', 'attr' : {'class' : 'form-control' }} ) }}
 
     {# Date de début et de fin de la session #}
     <div class="row justify-content-between">
@@ -42,47 +41,60 @@
     </div>
     
     {# Total de places disponibles #}
-    {{ form_row(form.place_number, {'label': 'Total de places disponibles :', 'attr' : {'class' : 'form-control' }} ) }}
+    {{ form_row(form.place_number, {'label': 'Nombre total de places disponible :', 'attr' : {'class' : 'form-control' }} ) }}
     
-    {# Liste des stagiaires inscrits à la session NON FONCTIONNEL #}
-    {# {{ form_row(form.interns, {'label': 'Liste des stagiaires inscrits :', 'attr' : {'class' : 'form-control' }} ) }} #}
+    <div class="form-group row mt-5 ">
+        <h4>Les modules de la formation :</h4>
+
+        <div id="programme-fields-list" class="remove-collection-widget"
+            data-prototype="{{ form_widget(form.programs.vars.prototype)|e }}"
+            data-session=" {{sessionId}} "
+            data-widget-tags="{{ '<p></p>'|e }}"
+            data-widget-counter="{{ form.programs|length }}">
+        {% for programmeField in form.programs %}
+            <p>
+                {{ form_errors(programmeField) }}
+                {{ form_widget(programmeField, {'attr': {'class': 'borders mb-5'}}) }}
+            </p>
+        {% endfor %}
+        
+        </div>
+    </div>
+
+    <div class="form-group row flex-action justify-content-center">
+        <button type="button" class="add-another-collection-widget button btn btn-primary btn-return" data-list-selector="#programme-fields-list">Ajouter un nouveau module</button>
+    </div>
+
+    {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
+    {% do form.programs.setRendered %}
+       
+    </div>
 
     {# Submit du formulaire #}
     <div class="d-flex justify-content-center">
         {% if edit %}
-            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Sauvegarder les modifications</button>
+            <button type="submit" class="btn btn-success mt-5 w-50 btn-return">Sauvegarder les modifications</button>
             {% else %}
             <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Créer la Session</button>    
         {% endif %}
     </div>
+
     {{ form_end(form)}}
-    <br>
-
-    
-
-    {# {{ form_start(formProgram) }}
-
-        <h5 class="text-center">Ajout d'un module au programme</h5>
-        <div class="row justify-content-between">
-            <div class="col-6 input-container">
-                {{ form_row(formProgram.module, {'label': 'Module :', 'value': '0', 'attr' : {'class' : 'form-control' }} ) }}
-            </div>
-            <div class="col-6 input-container">
-                {{ form_row(formProgram.numberDays, {'label': 'Durée du module (En jours) :', 'value': '', 'attr' : {'class' : 'form-control' }} ) }}
-            </div>
-        </div>
         
-        {{ form_row(formProgram.session, {'label': 'Session :', 'value': '', 'attr' : {'class' : 'form-control' }} ) }}
-
-        <input type="submit" value="Ajouter le module" class="btn btn-success btn-return m-auto mt-3">
-
-    {{ form_end(formProgram)}} #}
-
 </section>
 
-<div class="text-center">
-    <a href="{{path('session_detail', {'id': edit}) }}" class="btn btn-primary btn-return">Retourner au détail de la session</a>
-</div>
+{% if edit %}
+
+    <div class="text-center">
+        <a href="{{path('session_detail', {'id': sessionId}) }}" class="btn btn-primary btn-return">Retour au détail de la session</a>
+    </div>
+    {% else %}
+    <div class="text-center">
+        <a href="{{path('app_formation') }}" class="btn btn-primary btn-return">Retour à la liste des formations</a>
+    </div>
+
+{% endif %}
+
 
 {% endblock %}
     

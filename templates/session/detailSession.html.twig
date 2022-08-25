@@ -7,14 +7,14 @@
 <section id="detail-session" class="py-5" >
 
     {% for message in app.flashes('notice-error') %}
-        <div class="alert-warning text-center mb-3 py-2">
+        <div class="alert-warning text-center mb-3">
             {{ message }}
             <i class="fa-solid fa-thumbs-down"></i>
         </div>
     {% endfor %}
 
     {% for message in app.flashes('notice-success') %}
-        <div class="alert-warning text-center mb-3 py-2">
+        <div class="alert-warning text-center mb-3">
             {{ message }}
             <i class="fa-solid fa-thumbs-up"></i>
         </div>
@@ -49,6 +49,7 @@
                 </li>
         </ul>
         {# Stagiaires inscrits #}
+
         <ul class="d-flex flex-column gap-2 m-0">
             <h4 class="fw-bold">Stagiaires inscrits :</h4>
             {% if session.interns | length > 0 %}
@@ -62,16 +63,15 @@
                             <i class="fa-solid fa-user-minus red-hover"></i>
                         </a>
                     </li>
-                    
-                    {# <a href="#" class="btn btn-primary">Inscrire un nouveau stagiaire</a> #}
                     {% endfor %}
                 {% else %}
                     <span>Aucun stagiaire n'est inscrit à cette session pour le moment.</span>
             {% endif %}
             <br>
         </ul>
+
         {#  Stagiaires non inscrits #}
-        
+
         <ul>
             <h4 class="fw-bold">Stagiaires non inscrits :</h4>
             {% for intern in internsNotInSession %}
@@ -90,12 +90,12 @@
             
             <a href="{{ path('edit_session', {'id': session.id}) }}" class="btn btn-success btn-action">Modifier la session</a>
 
-            <a href="#" class="btn btn-danger btn-action" onclick="return confirm('Voulez vous vraiment supprimer cette session  ?')">Supprimer la session</a>
+            <a href="{{ path('delete_session', {'id': session.id}) }}" class="btn btn-danger btn-action" onclick="return confirm('Voulez vous vraiment supprimer cette session  ?')">Supprimer la session</a>
     
         </div>
     </article>
 
-    <article class="session-record m-auto">
+    <article class="session-record m-auto py-5">
         <ul class="d-flex flex-column gap-2 mb-0">
             <h4 class="fw-bold">Programme de la session :</h4>
 
@@ -128,26 +128,6 @@
         {% else %}
             <span>Aucun programme n'a encore été établi.</span>
         {% endif %}
-
-        {{ form_start(formProgram) }}
-    
-        <h4 class="fw-bold mb-4">Ajout d'un module :</h4>
-        <div class="row justify-content-between mb-3">
-            <div class="col-6 input-container">
-                {{ form_row(formProgram.module, {'label': 'Module :', 'value': '0', 'attr' : {'class' : 'form-control' }} ) }}
-            </div>
-            <div class="col-6 input-container">
-                {{ form_row(formProgram.numberDays, {'label': 'Durée du module (En jours) :', 'value': '', 'attr' : {'class' : 'form-control' }} ) }}
-            </div>
-
-            <div class="to-hide d-none">
-                {{ form_row(formProgram.session, {'label': 'Session :', 'attr' : {'class' : 'hidden-row' }} ) }}
-            </div>
-
-        <input type="submit" value="Ajouter le module" class="btn btn-success btn-action m-auto mt-5 d-block"> 
-
-    {{ form_end(formProgram)}}
-
     </article>
 
     <div class="d-flex justify-content-center mt-5">

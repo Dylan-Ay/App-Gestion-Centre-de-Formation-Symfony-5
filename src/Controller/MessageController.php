@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/message", name="app_message")
+     * @Route("/profile/message", name="app_message")
      */
     public function index(): Response
     {

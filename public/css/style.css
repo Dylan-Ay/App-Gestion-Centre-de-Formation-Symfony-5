@@ -116,6 +116,7 @@ header .navbar-nav {
   border-radius: 10px;
   margin: auto;
   background-color: #fde1b6;
+  padding: 15px;
 }
 
 .p-30 {
@@ -212,6 +213,9 @@ header .navbar-nav {
 #edit-session form {
   margin: unset;
   max-width: 600px;
+}
+#edit-session .borders input {
+  margin-bottom: 14px;
 }
 
 #modules-list table, #categories-list table {
