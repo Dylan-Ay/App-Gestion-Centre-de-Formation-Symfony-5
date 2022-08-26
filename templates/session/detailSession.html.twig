@@ -4,6 +4,8 @@
 
 {% block body %}
 
+
+{# Alertes flash #}
 <section id="detail-session" class="py-5" >
 
     {% for message in app.flashes('notice-error') %}
@@ -20,7 +22,15 @@
         </div>
     {% endfor %}
 
+    {% for message in app.flashes('module-deleted') %}
+        <div class="alert-warning text-center mb-3">
+            {{ message }}
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    {% endfor %}
 
+
+    {# Detail de la session #}
     <article class="session-record m-auto mb-5">
         <h3 class="text-center m-0">
             <i class="fa-solid fa-calendar-days pe-1"></i> Detail de la Session
@@ -48,8 +58,9 @@
                     <span class="fw-bold pe-1">Nombre de places restantes : </span> {{session.leftPlacesNumber}} 
                 </li>
         </ul>
-        {# Stagiaires inscrits #}
 
+
+        {# Stagiaires inscrits #}
         <ul class="d-flex flex-column gap-2 m-0">
             <h4 class="fw-bold">Stagiaires inscrits :</h4>
             {% if session.interns | length > 0 %}
@@ -70,8 +81,8 @@
             <br>
         </ul>
 
-        {#  Stagiaires non inscrits #}
 
+        {#  Stagiaires non inscrits #}
         <ul>
             <h4 class="fw-bold">Stagiaires non inscrits :</h4>
             {% for intern in internsNotInSession %}
@@ -86,6 +97,8 @@
             {% endfor %}
         </ul>
 
+
+        {#  Boutons d'actions modifier ou supprimer la session #}
         <div class="btn-actions-container d-flex justify-content-evenly py-4">
             
             <a href="{{ path('edit_session', {'id': session.id}) }}" class="btn btn-success btn-action">Modifier la session</a>
@@ -95,6 +108,8 @@
         </div>
     </article>
 
+
+    {# Programme de la session #}
     <article class="session-record m-auto py-5">
         <ul class="d-flex flex-column gap-2 mb-0">
             <h4 class="fw-bold">Programme de la session :</h4>
@@ -130,6 +145,7 @@
         {% endif %}
     </article>
 
+    {# Bouton de retour #}   
     <div class="d-flex justify-content-center mt-5">
         <a href="{{ path('app_formation') }}" class="btn btn-primary btn-return">Retour à la liste des formations</a>
     </div>

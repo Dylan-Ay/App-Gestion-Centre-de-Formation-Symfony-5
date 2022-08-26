@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}
 
     {% if edit %}
@@ -67,9 +66,8 @@
 
     {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
     {% do form.programs.setRendered %}
-       
-    </div>
 
+    
     {# Submit du formulaire #}
     <div class="d-flex justify-content-center">
         {% if edit %}
@@ -83,6 +81,8 @@
         
 </section>
 
+
+{# Boutons de retour #}
 {% if edit %}
 
     <div class="text-center">
@@ -94,7 +94,6 @@
     </div>
 
 {% endif %}
-
 
 {% endblock %}
     

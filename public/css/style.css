@@ -270,4 +270,11 @@ header .navbar-nav {
 
 #inbox .message-preview {
   width: 385px;
+}
+#inbox .btn-return {
+  width: 200px;
+}
+
+#messagerie .btn-return {
+  width: 250px;
 }/*# sourceMappingURL=style.css.map */

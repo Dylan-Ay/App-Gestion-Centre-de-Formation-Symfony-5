@@ -39,7 +39,7 @@ class SessionController extends AbstractController
     }
 
 
-    // <-------- Ajouter/ Modifier les informations d'une session -------->
+    // <-------- Ajouter une session ou modifier ses informations -------->
 
     /**
      * @Route("/session/add", name= "add_session")
@@ -50,7 +50,7 @@ class SessionController extends AbstractController
         if (!$session){
             $session = new Session();
         }
-
+            
         // Form modification de la session
         $form = $this->createForm(SessionType::class, $session);
 
@@ -58,7 +58,12 @@ class SessionController extends AbstractController
         
         // Vérifie que le formulaire a été soumit et que les champs sont valides (similiaire à filter_input)
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
+            // if($session->getPrograms())
+            // {
+            //     // si l'id du module existe pas dans le programme de la session
+            // }
+
             $session = $form->getData(); //Permet d'hydrater l'objet session
             
             $sessionManager = $doctrine->getManager(); // Récupère le manager
@@ -81,7 +86,7 @@ class SessionController extends AbstractController
         ]);
     }
 
-    // <-------- Ajouter/ Modifier les informations d'une session -------->
+    // <-------- Supprimer une session -------->
 
     /**
      * @Route("/session/delete/{id}", name="delete_session")
@@ -134,7 +139,7 @@ class SessionController extends AbstractController
     }
 
 
-    // <-------- Inscrire un stagiaire à une session -------->
+    // <-------- Inscrire un stagiaire à une session pour la view detailSession -------->
 
     /**
      * @Route("/session/inscrire/{idSe}/{idIn}", name = "subscribe_intern")
@@ -168,7 +173,7 @@ class SessionController extends AbstractController
     }
 
 
-    // <-------- Suppression d'un module du programme -------->
+    // <-------- Suppression d'un module du programme pour la view detailSession -------->
 
     /**
      * @Route("session/supression-module/{idSe}/{idPro}/{idMo}", name="delete_program_module")
@@ -187,7 +192,7 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash(
-            'notice',
+            'module-deleted',
             "Le module $removedModule a bien été supprimé"
         );
 

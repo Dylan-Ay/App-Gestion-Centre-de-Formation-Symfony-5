@@ -17,11 +17,11 @@
     <p>Résumé de la messagerie</p>
     <p>Nombre de messages reçus : {{ app.user.received|length}}</p>
     <p>Nombre de messages envoyés : {{app.user.sent|length}}</p>
-    <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    <a class="btn btn-primary btn-return" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         Menu
     </a>
 
-    <a href="{{ path('app_send') }}" class="btn btn-dark">Nouveau message</a>
+    <a href="{{ path('app_send') }}" class="btn btn-dark btn-return">Nouveau message</a>
     
     {# Menu latéral de la messagerie #}
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -31,7 +31,7 @@
         </div>
         <div class="offcanvas-body">
             
-            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4">Nouveau message</a>
+            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4 btn-return">Nouveau message</a>
             
             <ul class="list-group">
                 <a href="{{ path('app_message') }}" class="list-group-item active">
