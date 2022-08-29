@@ -1,25 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stagiaires{% endblock %}
+{% block title %}Résultat de la recherche{% endblock %}
 
 {% block body %}
+<h1>Résultat de votre recherche pour "{{query}}"</h1>
 
-<h1>Les Stagiaires</h1>
+{% if app.request.method == 'POST' %}
 
-<section id="interns-list" class="py-5 table-responsive ">
-  {% for message in app.flashes('notice') %}
-    <div class="alert-warning text-center mb-5">
-        {{ message }}
-        <i class="fa-solid fa-thumbs-up"></i>
-    </div>
-  {% endfor %}  
-  
-{# Bar de recherche #}
-{{ render(controller('App\\Controller\\SearchController::searchBar'))}}
+<section id="result-intern-search" class="py-5">
 
     <table class="table table-hover mt-4 table-bordered table-striped">
         <thead>
-          <tr>
+        <tr>
             <th scope="col">Prenom</th>
             <th scope="col">Nom</th>
             <th scope="col" class="birthdate-cell">Date de naissance</th>
@@ -30,19 +22,19 @@
             <th scope="col">Téléphone</th>
             <th scope="col">Sessions prévues</th>
             <th scope="col">Fiche stagiaire</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
-        {% for intern in internsList %}
+        {% for intern in interns %}
 
         <tr class="table-active">
-          
-          <td class="border-right">
+        
+        <td class="border-right">
             <a class="blue-hover" href="{{ path('intern_detail', {'id': intern.id}) }}">{{intern.firstName}}</a>
-          </td>
-          <td>
+        </td>
+        <td>
             <a class="blue-hover" href="{{ path('intern_detail', {'id': intern.id}) }}">{{intern.lastName}}</a>
-          </td>
+        </td>
             <td>{{intern.birthDate | date("d/m/Y")}}</td>
             <td>{{intern.getAge}}</td>
             <td>{{intern.gender}}</td>
@@ -50,33 +42,40 @@
             <td>{{intern.getFullAdress}}</td>
             <td>{{intern.phone}}</td>
             <td class="session-cell">
-              <ul class="d-flex flex-column gap-4">
+            <ul class="d-flex flex-column gap-4">
                 {% if intern.sessions | length > 0 %}
-                  {% for internsession in intern.sessions %}
-                  <li>
+                {% for internsession in intern.sessions %}
+                <li>
                     <a class="blue-hover" href="{{ path('session_detail', {'id': internsession.id}) }}">
-                      <span class="fw-bold">{{internsession.formation.title}}</span>
+                    <span class="fw-bold">{{internsession.formation.title}}</span>
                     </a>
-                      <br>( du {{internsession.datestart| date("d/m/Y")}} au 
-                      {{internsession.dateend| date("d/m/Y") }} )
-                  </li>
-                  {% endfor %}
+                    <br>( du {{internsession.datestart| date("d/m/Y")}} au 
+                    {{internsession.dateend| date("d/m/Y") }} )
+                </li>
+                {% endfor %}
                 {% else %}
                     Aucune inscription enregistrée.
                 {% endif %}
-              </ul>
+            </ul>
             </td>
             <td class="text-center">
-              <a href="{{ path('intern_detail', {'id': intern.id}) }}">
+            <a href="{{ path('intern_detail', {'id': intern.id}) }}">
                 <i class="fa-solid fa-pen-to-square blue-hover"></i>
-              </a>
+            </a>
             </td>
         </tr>
 
         {% endfor %}
         </tbody>
-      </table>
+    </table>
 
 </section>
 
+    <div class="d-flex justify-content-center mt-5">
+        <a href="{{ path('app_interns') }}" class="btn btn-primary btn-return">Retour à la liste des stagiaires</a>
+    </div>
+{% endif %}
+
 {% endblock %}
+
+

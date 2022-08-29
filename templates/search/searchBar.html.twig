@@ -1,0 +1,9 @@
+<div class="form-searchBar d-flex flex-row-reverse justify-content-between">
+    <a href="{{ path('add_intern') }}" class="btn btn-warning btn-return d-block">Ajouter un nouveau stagiaire</a>
+    
+    {{ form_start(form, {'attr' : {'class' : 'd-flex gap-1 flex-row-reverse'}} ) }}
+    
+    {{ form_row(form.rechercher) }}
+    {{ form_row(form.query) }}     
+    {{ form_end(form) }}
+</div>

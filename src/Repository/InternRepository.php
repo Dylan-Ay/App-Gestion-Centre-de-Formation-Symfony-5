@@ -39,6 +39,31 @@ class InternRepository extends ServiceEntityRepository
         }
     }
 
+    public function findInternsByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+        ->where(
+            $qb->expr()->andX(
+                $qb->expr()->orX(
+                    $qb->expr()->like('p.firstname', ':query'),
+                    $qb->expr()->like('p.lastname', ':query'),
+                    $qb->expr()->like('p.email', ':query'),
+                    $qb->expr()->like('p.firstname', ':query'),
+                    $qb->expr()->like('p.phone', ':query'),
+                    $qb->expr()->like('p.adress', ':query'),
+                    $qb->expr()->like('p.country', ':query'),
+                    $qb->expr()->like('p.city', ':query'),
+                    $qb->expr()->like('p.zipcode', ':query'),
+                    $qb->expr()->like('p.birthdate', ':query')
+                ),
+            )
+        )
+        ->setParameter('query', '%' . $query . '%');
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Intern[] Returns an array of Intern objects
 //     */

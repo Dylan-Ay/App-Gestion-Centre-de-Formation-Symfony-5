@@ -40,7 +40,7 @@ header .navbar-collapse {
   flex-grow: 0.95;
 }
 header .navbar-nav {
-  width: 85%;
+  width: 95%;
   justify-content: space-between;
 }
 @media screen and (max-width: 1200px) {
@@ -150,7 +150,7 @@ header .navbar-nav {
   width: 65px;
 }
 #interns-list .btn-return {
-  margin: auto;
+  width: 260px;
 }
 
 #detail-intern .intern-record {
@@ -276,5 +276,9 @@ header .navbar-nav {
 }
 
 #messagerie .btn-return {
+  width: 250px;
+}
+
+.form-searchBar .searchbar {
   width: 250px;
 }/*# sourceMappingURL=style.css.map */

@@ -43,7 +43,7 @@ header{
         flex-grow: .95;
     }
     .navbar-nav{
-        width: 85%;
+        width: 95%;
         justify-content: space-between;
         @media screen and (max-width: 1200px) {
             width: 100%;
@@ -172,7 +172,7 @@ header{
         }
     }
     .btn-return{
-        margin: auto;
+        width: 260px;
     }
 }
 
@@ -337,6 +337,12 @@ header{
 
 #messagerie{
     .btn-return{
+        width: 250px;
+    }
+}
+
+.form-searchBar{
+    .searchbar{
         width: 250px;
     }
 }
