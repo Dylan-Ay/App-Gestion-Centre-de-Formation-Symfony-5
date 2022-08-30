@@ -3,17 +3,22 @@
 {% block title %}Envoyer un message{% endblock %}
 
 {% block body %}
+<h1>Envoi d'un nouveau message</h1>
 
-    {{ form_start(form, {'attr': {'class': 'd-flex flex-column gap-3'}} ) }}
+<section id="send-msg" class="py-5">
+    {{ form_start(form, {'attr': {'class': 'd-flex flex-column gap-3 m-auto'}} ) }}
         
         {{ form_row(form.recipient, {'label': 'Destinaire :', 'attr' : {'class' : 'form-control' }} )}}
 
         {{ form_row(form.title, {'label': 'Objet :', 'attr' : {'class' : 'form-control' }} ) }}
 
-        {{ form_row(form.message, {'label': 'Contenu du message :', 'attr' : {'class' : 'form-control' }} ) }}
+        {{ form_row(form.message, {'label': 'Contenu du message :', 'attr' : {'class' : 'form-control py-5' }} ) }}
 
-
-        <button type="submit" class="btn btn-primary btn-action d-block m-auto">Envoyer le message</button>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success btn-action me-5">Envoyer le message</button>
+        <a href="{{ path('app_inbox') }}" class="btn btn-primary btn-action">Retour à la boîte de réception</a>
+    </div>
     {{ form_end(form) }}
+</section>
 
 {% endblock %}

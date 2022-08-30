@@ -14,10 +14,10 @@
     {% endfor %}
 
     <h1>Messagerie</h1>
-    <p>Résumé de la messagerie</p>
+    <p class="fw-bold">Résumé de la messagerie :</p>
     <p>Nombre de messages reçus : {{ app.user.received|length}}</p>
     <p>Nombre de messages envoyés : {{app.user.sent|length}}</p>
-    <a class="btn btn-primary btn-return" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    <a class="btn btn-primary btn-return me-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         Menu
     </a>
 

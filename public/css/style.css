@@ -29,6 +29,13 @@ a:hover {
   color: #e74c3c;
 }
 
+.msg-container {
+  background-color: #ecf0f1;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 800px;
+}
+
 .green-hover {
   transition: 0.15s ease-in-out;
 }
@@ -107,6 +114,21 @@ header .navbar-nav {
   position: absolute;
   top: 65px;
   left: 0;
+  padding-left: 1.5rem;
+  color: #e32410;
+}
+
+.input-container-register {
+  position: relative;
+}
+.input-container-register ul {
+  margin: 0;
+  list-style: none;
+}
+.input-container-register ul li {
+  position: absolute;
+  top: 0px;
+  left: 6%;
   padding-left: 1.5rem;
   color: #e32410;
 }
@@ -265,7 +287,7 @@ header .navbar-nav {
 }
 
 #edit-profil .btn-action {
-  width: 225px;
+  max-width: 225px;
 }
 
 #inbox .message-preview {
@@ -275,10 +297,25 @@ header .navbar-nav {
   width: 200px;
 }
 
+#read {
+  max-width: 800px;
+  margin: auto;
+}
+#read .btn-action {
+  width: 235px;
+}
+
 #messagerie .btn-return {
   width: 250px;
 }
 
 .form-searchBar .searchbar {
   width: 250px;
+}
+
+#send-msg .btn-action {
+  width: unset;
+}
+#send-msg form {
+  max-width: 800px;
 }/*# sourceMappingURL=style.css.map */

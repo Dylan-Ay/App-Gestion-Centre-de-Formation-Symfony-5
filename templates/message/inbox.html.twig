@@ -25,11 +25,11 @@
     <table class="table table-hover">
         <thead>
           <tr>
-            <td scope="col">Expéditeur</td>
-            <td scope="col">Objet</td>
-            <td scope="col">Aperçu du message</td>
-            <td scope="col">Date de réception</td>
-            <td scope="col">Actions</td>
+            <th scope="col">Expéditeur</th>
+            <th scope="col">Objet</th>
+            <th scope="col">Aperçu du message</th>
+            <th scope="col">Date de réception</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -44,12 +44,12 @@
             <tr class="{{bold}}">
                 <td>{{message.sender.email}}</td>
                 <td>
-                    <a href="{{ path('app_read', {'id': message.id}) }}">
+                    <a class="blue-hover" href="{{ path('app_read', {'id': message.id}) }}">
                         {{message.title}}
                     </a>
                 </td>
                 <td class="message-preview">
-                    <a href="{{ path('app_read', {'id': message.id}) }}">{{message.message | u.truncate(45, '...', false) }}</a>
+                    <a class="blue-hover" href="{{ path('app_read', {'id': message.id}) }}">{{message.message | u.truncate(45, '...', false) }}</a>
                 </td>
                 <td>{{message.createdat | date ("d/m/Y")}}</td>
                 <td>
@@ -70,7 +70,7 @@
         </div>
         <div class="offcanvas-body">
             
-            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4">Nouveau message</a>
+            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4 btn-return">Nouveau message</a>
             
             <ul class="list-group">
                 <a href="{{ path('app_message') }}" class="list-group-item">

@@ -32,6 +32,13 @@ a{
     }
 }
 
+.msg-container{
+    background-color: #ecf0f1;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 800px;
+}
+
 .green-hover{
     transition: 0.15s ease-in-out;
     &:hover{
@@ -118,6 +125,21 @@ header{
         }
     }
 }
+
+.input-container-register{
+    position: relative;
+    ul{
+        margin: 0;
+        list-style: none;
+        & li{
+            position: absolute;
+            top: 0px;
+            left: 6%;
+            padding-left: 1.5rem;
+            color: #e32410;
+        }
+    }
+} 
 
 .alert-warning{
     width: 500px;
@@ -320,7 +342,7 @@ header{
 
 #edit-profil{
     .btn-action{
-        width: 225px;
+        max-width: 225px;
     }
 }
 
@@ -335,6 +357,14 @@ header{
     }
 }
 
+#read{
+    max-width: 800px;
+    margin: auto;
+    .btn-action{
+        width: 235px;
+    }
+}
+
 #messagerie{
     .btn-return{
         width: 250px;
@@ -344,5 +374,14 @@ header{
 .form-searchBar{
     .searchbar{
         width: 250px;
+    }
+}
+
+#send-msg{
+    .btn-action{
+        width: unset;
+    }
+    form{
+        max-width: 800px;
     }
 }

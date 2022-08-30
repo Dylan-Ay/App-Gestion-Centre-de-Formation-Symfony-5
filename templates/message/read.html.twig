@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<section id="inbox">
+<section id="read">
 
     {% for message in app.flashes('message') %}
         <div class="alert-warning text-center mb-3">
@@ -13,16 +13,26 @@
         </div>
     {% endfor %}
 
-    <h2>Message de {{message.title}}</h2>
-    <p>Expéditeur : {{message.sender.email}}</p>
-    <p>Reçu le : {{message.createdat | format_datetime ("full", 'short', locale='fr') }}</p> 
-    <p>Contenu du message : {{message.message}}</p>
+    <h2>Objet: {{message.title}}</h2>
+    <p> 
+        <span class="fw-bold">Expéditeur :</span> {{message.sender.email}}
+    </p>
+    <p>
+        <span class="fw-bold">Reçu le :</span> {{message.createdat | format_datetime ("full", 'short', locale='fr') }}
+    </p> 
     
-    <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    <p>
+        <span class="fw-bold">Contenu du message :</span>
+            <div class="msg-container">
+                {{message.message}}
+            </div>
+    </p>
+    
+    <a class="btn btn-primary me-2 btn-action" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         Menu
     </a>
 
-    <a href="{{ path('app_inbox') }}" class="btn btn-dark">Retour à la boîte de réception</a>
+    <a href="{{ path('app_inbox') }}" class="btn btn-dark btn-action">Retour à la boîte de réception</a>
 
     {# Menu latéral de la messagerie #}
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -32,7 +42,7 @@
         </div>
         <div class="offcanvas-body">
             
-            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4">Nouveau message</a>
+            <a href="{{ path('app_send') }}" class="btn btn-dark mb-4 btn-return">Nouveau message</a>
             
             <ul class="list-group">
                 <a href="{{ path('app_message') }}" class="list-group-item">
