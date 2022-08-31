@@ -16,6 +16,7 @@ The functionalities are :
 - Adding, Deleting, Updating datas
 - User connexion with personal profil
 - Admin role to provide more rights
+- Intern messages system
 
 Stacks used :
 - PHP
