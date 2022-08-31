@@ -40,7 +40,7 @@
     </div>
     
     {# Total de places disponibles #}
-    {{ form_row(form.place_number, {'label': 'Nombre total de places disponible :', 'attr' : {'class' : 'form-control' }} ) }}
+    {{ form_row(form.place_number, {'label': 'Nombre total de places disponibles :', 'attr' : {'class' : 'form-control' }} ) }}
     
     <div class="form-group row mt-5 ">
         <h4>Les modules de la formation :</h4>
@@ -67,13 +67,14 @@
     {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
     {% do form.programs.setRendered %}
 
-    
+    <span class="text-center">Ou</span>
+
     {# Submit du formulaire #}
     <div class="d-flex justify-content-center">
         {% if edit %}
-            <button type="submit" class="btn btn-success mt-5 w-50 btn-return">Sauvegarder les modifications</button>
+            <button type="submit" class="btn btn-success mt-1 w-50 btn-return">Sauvegarder les modifications</button>
             {% else %}
-            <button type="submit" class="btn btn-success mt-3 w-50 btn-return">Créer la Session</button>    
+            <button type="submit" class="btn btn-success mt-1 w-50 btn-return">Créer la Session</button>    
         {% endif %}
     </div>
 
@@ -89,6 +90,7 @@
         <a href="{{path('session_detail', {'id': sessionId}) }}" class="btn btn-primary btn-return">Retour au détail de la session</a>
     </div>
     {% else %}
+    
     <div class="text-center">
         <a href="{{path('app_formation') }}" class="btn btn-primary btn-return">Retour à la liste des formations</a>
     </div>

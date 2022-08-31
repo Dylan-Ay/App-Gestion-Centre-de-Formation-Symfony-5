@@ -151,7 +151,7 @@ class SessionController extends AbstractController
         if ($session->leftPlacesNumber() === 0) {
             $this->addFlash(
                 'notice-error',
-                "Il n'y a plus de place disponible pour cette session"
+                "Il n'y a plus de place disponibles pour cette session"
             );
             
         }else{
