@@ -13,9 +13,15 @@
     <div class="input-container-register">
         {{ form_row(registrationForm.email, {'label': 'Email :', 'attr' : {'class' : 'form-control' }} ) }}
     </div>
+
         {{ form_row(registrationForm.firstname, {'label': 'Prénom :', 'attr' : {'class' : 'form-control' }} ) }}
 
         {{ form_row(registrationForm.lastname, {'label': 'Nom :', 'attr' : {'class' : 'form-control' }} )}}
+    
+    
+        {{ form_row(registrationForm.roles, {'label': 'Choisissez un rôle :', 'attr' : {'class' : 'd-flex gap-1'}} )}}
+
+
     <div class="input-container-register">
         {{ form_row(registrationForm.plainPassword) }}
     </div>
